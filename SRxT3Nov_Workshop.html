@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sportradar × Twenty3 workshop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Inter+Tight:wght@500;600&display=swap" rel="stylesheet">
+<script>
+/* =====================================================================
+   WORKSHOP CONFIG — edit everything in this block. Nothing below it
+   needs to change. Times are 24h in the event's timezone; each block's
+   start time is worked out from the event start + previous durations.
+   Any optional section with an empty list is hidden automatically.
+   ===================================================================== */
+window.WORKSHOP = {
+  eyebrow: ["Partner workshop", "London"],
+  host:   { name: "Sportradar",  short: "Host" },
+  client: { name: "Twenty3",     short: "Partner" },
+  title: "Data & product discovery workshop",
+  lede: "Both teams in one room to walk through the improvements in our data, agree the best opportunities in the market and how we win together, and look at where the product is headed.",
+
+  date: "2026-11-12",                 // YYYY-MM-DD
+  start: "14:00",                     // 24h, event timezone
+  timezone: "Europe/London",
+  locale: "en-GB",                    // date format: "en-GB" or "en-US"
+  tzLabel: "GMT",
+  afterNote: "followed by drinks, then dinner at 6:30 PM",    // shown after the time range ("" to hide)
+
+  where: { title: "Sportradar, 88 Wood Street", detail: "Level 2 \u00b7 Jules Remet (Board Room) \u00b7 London" },
+  remote: { label: "Google Meet", url: "https://meet.google.com/kga-gbxd-gke",
+            display: "meet.google.com/kga-gbxd-gke \u00b7 Dial-in (GB) +44 20 3956 3872, PIN 147972538#" }, // display is optional; set remote to null for in-person only
+
+  // Colours for who leads each block. Keys are referenced by agenda blocks.
+  leads: {
+    host:   { label: "Sportradar-led", color: "#8AB4F8" },
+    client: { label: "Twenty3-led",    color: "#F6C25B" },
+    joint:  { label: "Joint",          color: "linear-gradient(90deg,#8AB4F8,#F6C25B)" }
+  },
+
+  attendeesIntro: "Product, engineering and partnership leads from both teams.",
+  attendees: {
+    host: [
+      { name: "Laurence Williams", role: "Senior Product Manager, Sports API" },
+      { name: "Scott Dunstan",     role: "Director of Product, Sports Media Delivery" },
+      { name: "Jack Ainslie",      role: "Senior Product Manager, API Delivery" },
+      { name: "Adam Shone",        role: "Product Analyst" },
+      { name: "James Padden",      role: "Technical Success Manager" },
+      { name: "Jake Navarro",      role: "Group Product Manager, Media Content", note: "Optional \u00b7 dialling in from Minneapolis" }
+    ],
+    client: [
+      { name: "Lauren Mitchell",  role: "", note: "Organiser" },
+      { name: "Nathan Wray",      role: "" },
+      { name: "Charlie Sizer",    role: "" },
+      { name: "Simon McMillan",   role: "" },
+      { name: "Kyle Joseph",      role: "" },
+      { name: "Mark Thompson",    role: "" },
+      { name: "Tristan Minall",   role: "" }
+    ]
+  },
+
+  outcomesTitle: "Key objectives",
+  outcomesIntro: "Three objectives that shape how we spend the afternoon.",
+  outcomes: [
+    { title: "Show the improvements in data", text: "Walk through how our data has improved, and what those improvements mean for Twenty3\u2019s products and customers." },
+    { title: "The best opportunities, and how we win together", text: "A shared understanding of the strongest opportunities in the market, and how we go after them as partners." },
+    { title: "The operating environment and where the product is headed", text: "A deep understanding of the landscape we both operate in, and where the product is going next." }
+  ],
+
+  prep: [],   // "Before you arrive" section; add { title, text, link? } items to show it
+
+  // Agenda. type: "session" | "break" | "social".
+  // items: plain strings, or { b: "Bold lead-in", t: "rest of line", sub: ["nested", "points"] }
+  agenda: [
+    { type: "session", lead: "joint", minutes: 10, short: "Welcome",
+      title: "Welcome and intros",
+      summary: "Round-the-room intros and a quick walk through the afternoon." },
+    { type: "session", lead: "joint", minutes: 10, short: "Overview",
+      title: "Overview",
+      presenters: "Scott Dunstan and Lauren Mitchell" },
+    { type: "session", lead: "host", minutes: 10, short: "API status",
+      title: "Status of the Soccer API product and infrastructure",
+      presenters: "Laurence Williams" },
+    { type: "session", lead: "host", minutes: 15, short: "Data quality",
+      title: "Results of the improvements: data quality",
+      presenters: "James Padden" },
+    { type: "session", lead: "client", minutes: 10, short: "T3 health",
+      title: "Twenty3 status and health check",
+      presenters: "Twenty3 team" },
+    { type: "session", lead: "joint", minutes: 15, short: "Known challenges",
+      title: "Known challenges",
+      presenters: "James Padden, Laurence Williams and the Twenty3 team" },
+    { type: "session", lead: "host", minutes: 10, short: "What\u2019s next",
+      title: "What\u2019s next for the Soccer API",
+      presenters: "Laurence Williams" },
+    { type: "session", lead: "joint", minutes: 40, short: "Opportunities & innovations",
+      title: "Market opportunities and innovations",
+      summary: "An open session for everyone: the best opportunities in the market, new innovations, and how we win together." },
+    { type: "social", time: "16:15", until: "18:30", tag: "Drinks", title: "Drinks",
+      detail: "Drinks from 4:15 PM until we head to dinner \u00b7 venue TBC" },
+    { type: "social", time: "18:30", tag: "Dinner", title: "Caravan City",
+      detail: "22 Bloomberg Arcade, London EC4N 8AR \u00b7 Table for 10 booked at 6:30 PM \u00b7 Nearest Tube: Mansion House, Cannon Street or Bank",
+      links: [ { label: "View menu", url: "https://caravanandco.com/pages/city-menu?type=all-day" },
+               { label: "Get directions", url: "https://www.google.com/maps/search/?api=1&query=Caravan+City+22+Bloomberg+Arcade+London+EC4N+8AR" } ],
+      sign: "Cheers" }
+  ],
+
+  // Fill in during or after the session. Leave [] to hide.
+  actionsIntro: "Captured in the room. Each one has an owner on both sides.",
+  actions: []   // add { action, owner, side: "host"|"client", due, status } after the session
+};
+</script>
+<script>
+/* LOGOS — optional. Use light/white versions for the dark page. Any image
+   data URI works (SVG or PNG). Remove a line to fall back to the text name.
+   scale evens out visual size between differently shaped logos. */
+window.WORKSHOP_LOGOS = {
+  host:   { src: "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMTk3IDE0Ny4zIj48ZyBmaWxsPSIjZmZmZmZmIj48cGF0aCBkPSJtMCA4OS41aDEzLjF2NC4xYzAgMTAuMyA1LjQgMTQuNSAxOS44IDE0LjVoMzAuMWMyMS4xIDAgMjcuOC0wLjggMjcuOC0xMy4ydi0wLjdjMC04LTIuMy0xMi4zLTE5LjEtMTIuM2gtNDMuNGMtMTkuOC0wLjEtMjcuMS02LjUtMjcuMS0yMi4zdi00LjhjMC0xMy42IDcuNy0yMS4xIDQyLjMtMjEuMWgyMS41YzMxLjcgMCAzNi4xIDkuMSAzNi4xIDIwLjl2NC40aC0xMy4xdi0wLjhjMC0xMi44LTguNS0xMy4xLTIzLjgtMTMuMWgtMjQuNWMtMjAuMSAwLjEtMjQuNSAyLTI0LjUgMTEuNHYzLjFjMCA2LjkgMi4zIDEwLjggMTcgMTAuOGgzN2MyMS4xIDAgMzUuNTAwIDIuMSAzNS41IDI0LjZ2MC4zYzAuMSAyMy40LTIxLjUgMjQuMi0zOC42IDI0LjJoLTI1LjljLTIwLjcgMC00MC4yIDAtNDAuMi0yNS4xeiIvPjxwYXRoIGQ9Im0xMjMuOCAzNC45aDEzLjF2MTMuMmgwLjNjNC4xLTEwLjEgMTUuNS0xNC41IDI3LjktMTQuNWgyNi43YzE5LjkgMCAzOC41IDYuNCAzOC41IDM1LjF2MTQuN2MwIDI2LjktMTEuOSAzNi4xLTQwLjggMzYuMWgtMjYuN2MtMTQuOSAwLTIxLjUtMy43LTI0LjUtMTIuM2gtMC4zdjQwLjFoLTE0LjJ6bTkyLjQgMzRjMC0xNi4yLTUuMi0yMy44LTI1LTIzLjhoLTI3LjljLTE4LjUgMC0yNS41IDkuNi0yNS41IDI0djE1LjljMCAxOS45IDEyLjMgMjMuMiAyNy4zIDIzLjJoMjVjMTYuNCAwIDI2LjEtMy42IDI2LjEtMjIuOXoiLz48cGF0aCBkPSJtNDA4LjMgMzQuOWgxMy4xdjEyLjFoMC4zYzUuMi0xMC44IDE1LjktMTMuNCAyNS41LTEzLjRoMTMuMmMyNi4zIDAgMzQuOSA4LjUgMzQuOSAyOC45djEwaC0xM3YtMy42YzAtMjAuNS00LjMtMjMuOC0yOS4yLTIzLjhoLTguN2MtMTQuOSAwLTIyIDkuNS0yMiAyMC4ydjUyLjloLTE0eiIvPjxwYXRoIGQ9Im01MjMuOCA0Ni40aC0xOC4zdi0xMS41aDE4LjN2LTE5LjdoMTR2MTkuN2g1NS44djExLjRoLTU1Ljd2NDEuNWMwIDE1LjUgNS40IDIwLjMgMjAuNyAyMC4zaDQuNGMxOC42IDAgMjEuNi0zLjkgMjEuNi0yMS40di02LjJoMTEuNHY5LjFjMCAxNi43LTEuNiAyOS45LTMyIDI5LjloLTcuN2MtMjYuNCAwLTMyLjUtMTIuNy0zMi41LTI2LjN6Ii8+PHBhdGggZD0ibTYxMy45IDM0LjloMjkuNHYxNS44aDAuM2MzLjYtMTMuMiAxNi4zLTE3LjIgMzAuNS0xNy4yIDIyLjkgMCAzMS44IDkuOCAzMS44IDMyLjkgMCAyLjEtMC4yIDQuNC0wLjMgNy40aC0yNy4xYzAtMTAuNi0yLjUtMTUuNy0xNS0xNS43LTEwLjggMC0xOC4zIDQuMS0xOC4zIDE0djQ2LjFoLTMxLjN6Ii8+PHBhdGggZD0ibTcxNy42IDg5YzAtMjIuNiAxNS43LTI0IDQ2LjEtMjQgMTcuMiAwIDI2LjcgMC41IDMyLjcgNi43di03LjRjMC04LjItMi40LTExLjEtMTQuNy0xMS4xaC0xOC41Yy05LjEgMC0xMS43IDAuOC0xMi4xIDYuN2gtMzAuNGMwLTIyLjYgMTEuMS0yNi4zIDM3LjYtMjYuM2gzNi40YzIxLjUgMCAzMyAxMC4zIDMzIDI5Ljl2NTQuN2gtMjkuN3YtOS40Yy04LjcgOS0xMS45IDEwLjgtMjcuNiAxMC44aC0yMS40Yy0xOS4xIDAuMi0zMS4zLTQuMS0zMS4zLTIzLjd2LTYuOXptNTUuOSAxMC45YzIxLjYgMCAyMy41LTMuMyAyMy41LTguOCAwLTYuMi0xLjgtOC41LTE5LjEtOC41aC0xMy44Yy0xMy4yIDAtMTYgMi45LTE2IDkuOCAwIDUuNCA0LjMgNy41IDE2LjQgNy41eiIvPjxwYXRoIGQ9Im04NDMuNSA2OS4xYzAtMjEuMiA0LjktMzUuNCA0NC42LTM1LjRoOS4zYzEyLjkgMCAyNi4xIDMuNiAyOC4xIDE2LjdoMC4zdi01MC40aDMxLjN2MTE4LjJoLTI5LjR2LTE1LjRoLTAuM2MtMy40IDEwLjMtMTEuMyAxNi43LTMwLjIgMTYuN2gtOS4xYy0zOS43IDAtNDQuNi0xNC4yLTQ0LjYtMzUuNHptMzAuNCAxMi4zYzAgOS4zIDEuNSAxNC41IDE2LjQgMTQuNWgxOC41YzEyLjMgMCAxOC45LTIuOCAxOC45LTE1LjN2LTguMmMwLTEyLjYtNi41LTE1LjMtMTguOS0xNS4zaC0xOC41Yy0xNSAwLTE2LjQgNS4yLTE2LjQgMTQuNXoiLz48cGF0aCBkPSJtOTc0LjYgODljMC0yMi42IDE1LjctMjQgNDYuMS0yNCAxNy4xIDAgMjYuNyAwLjUgMzIuNyA2Ljd2LTcuNGMwLTguMi0yLjQtMTEuMS0xNC43LTExLjFoLTE4LjVjLTkuMiAwLTExLjggMC44LTEyLjEgNi43aC0zMC4zYzAtMjIuNiAxMS4xLTI2LjMgMzcuNi0yNi4zaDM2LjRjMjEuNiAwIDMzIDEwLjMgMzMgMjkuOXY1NC43aC0yOS43di05LjRjLTguNiA5LTExLjkgMTAuOC0yNy42IDEwLjhoLTIxLjVjLTE5LjEgMC4yLTMxLjQtNC4xLTMxLjQtMjMuN3ptNTUuOSAxMC45YzIxLjUgMCAyMy41LTMuMyAyMy41LTguOCAwLTYuMi0xLjgtOC41LTE5LjEtOC41aC0xMy45Yy0xMy4yIDAtMTYgMi45LTE2IDkuOCAwIDUuNCA0LjMgNy41IDE2LjQgNy41eiIvPjxwYXRoIGQ9Im0xMTA0LjcgMzQuOWgyOS40djE1LjhoMC4zYzMuNi0xMy4yIDE2LjMtMTcuMiAzMC41LTE3LjIgMjIuOSAwIDMxLjkgOS44IDMxLjkgMzIuOSAwIDIuMS0wLjIgNC40LTAuMyA3LjRoLTI3LjFjMC0xMC42LTIuNC0xNS43LTE1LTE1LjctMTAuOCAwLTE4LjMgNC4xLTE4LjMgMTR2NDYuMWgtMzEuNHoiLz48L2c+PHBhdGggZmlsbD0iI2ZmMDAwMCIgZD0ibTMzMi43IDQ0LjloLTI4LjdjLTE2LjQgMC0yNy44IDMuNy0yNy44IDIzLjJ2MTYuN2MwIDE5LjQgMTEuNCAyMy4yIDI3LjggMjMuMmgyOC43YzE2LjMgMCAyNy44LTMuOCAyNy44LTIzLjJ2LTE2LjdjLTAuMS0xOS41LTExLjUtMjMuMi0yNy44LTIzLjJ6Ii8+PHBhdGggZmlsbD0iI2ZmMDAwMCIgZD0ibTMzMS4yIDIxLjVoLTI1LjdjLTM0IDAtNTguOSA4LjItNTguOSA0My4ydjIzLjRjMCAzNS4xIDI0LjkgNDMuMSA1OC45IDQzLjFoMjUuN2MzNCAwIDU4LjktOC4yIDU4LjktNDMuMXYtMjMuNGMwLTM1LjEtMjQuOC00My4yLTU4LjktNDMuMnptNDMuMyA2NC4xYzAgMjcuNC0xOS40IDMzLjgtNDYuMSAzMy44aC0yMC4xYy0yNi43MDAgMC00Ni4xLTYuNC00Ni4xLTMzLjh2LTE4LjNjMC0yNy40IDE5LjUtMzMuOCA0Ni4xLTMzLjhoMjAuMWMyNi43IDAgNDYuMSA2LjQgNDYuMSAzMy44eiIvPjwvc3ZnPgo=", scale: 1 },
+  client: { src: "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTUxOCIgaGVpZ2h0PSIzNDAiIHZpZXdCb3g9IjAgMCAxNTE4IDM0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTU4IDE2QzE1OCA3LjIgMTUwLjggMCAxNDIgMEMxMzMuMiAwIDEyNiA3LjIgMTI2IDE2QzEyNiAyNC44IDEzMy4yIDMyIDE0MiAzMkMxNDIgMzIgMTQyIDMyIDE0MiAzMkMxNTAuOSAzMiAxNTggMjQuOCAxNTggMTYiIGZpbGw9IiNGRjI3NDEiLz48cGF0aCBkPSJNMTY0IDE3MEMxNjQgMTU3LjggMTU0LjIgMTQ4IDE0MiAxNDhDMTI5LjggMTQ4IDEyMCAxNTcuOCAxMjAgMTcwQzEyMCAxODIuMiAxMjkuOCAxOTIgMTQyIDE5MkMxNTQuMiAxOTIgMTY0IDE4Mi4yIDE2NCAxNzBaIiBmaWxsPSIjRkYyNzQxIi8+PHBhdGggZD0iTTEyMiAxMTZDMTIyIDEyNyAxMzEgMTM2IDE0MiAxMzZDMTUzIDEzNiAxNjIgMTI3IDE2MiAxMTZDMTYyIDEwNSAxNTMgOTYgMTQyIDk2QzEzMSA5NiAxMjIgMTA1IDEyMiAxMTZaIiBmaWxsPSIjRkYyNzQxIi8+PHBhdGggZD0iTTEyNiA2NEMxMjYgNzIuOCAxMzMuMiA4MCAxNDIgODBDMTUwLjggODAgMTU4IDcyLjggMTU4IDY0QzE1OCA1NS4yIDE1MC44IDQ4IDE0MiA0OEMxMzMuMiA0OCAxMjYgNTUuMiAxMjYgNjRaIiBmaWxsPSIjRkYyNzQxIi8+PHBhdGggZD0iTTEyNiAzMjRDMTI2IDMzMi44IDEzMy4yIDM0MCAxNDIgMzQwQzE1MC44IDM0MCAxNTggMzMyLjggMTU4IDMyNEMxNTggMzE1LjIgMTUwLjggMzA4IDE0MiAzMDhDMTQyIDMwOCAxNDIgMzA4IDE0MiAzMDhDMTMzLjIgMzA4IDEyNiAzMTUuMSAxMjYgMzIzLjlDMTI2IDMyMy45IDEyNiAzMjMuOSAxMjYgMzI0IiBmaWxsPSIjRkYyNzQxIi8+PHBhdGggZD0iTTE2MiAyMjZDMTYyIDIxNSAxNTMuMSAyMDYgMTQyIDIwNkMxMzEgMjA2IDEyMiAyMTQuOSAxMjIgMjI2QzEyMiAyMzcgMTMwLjkgMjQ2IDE0MiAyNDZDMTQyIDI0NiAxNDIgMjQ2IDE0MiAyNDZDMTUzLjEgMjQ2IDE2MiAyMzcuMSAxNjIgMjI2WiIgZmlsbD0iI0ZGMjc0MSIvPjxwYXRoIGQ9Ik0xNTggMjc2QzE1OCAyNjcuMiAxNTAuOCAyNjAgMTQyIDI2MEMxMzMuMiAyNjAgMTI2IDI2Ny4yIDEyNiAyNzZDMTI2IDI4NC44IDEzMy4yIDI5MiAxNDIgMjkyQzE0MiAyOTIgMTQyIDI5MiAxNDIgMjkyQzE1MC44IDI5MiAxNTggMjg0LjkgMTU4IDI3NkMxNTggMjc2IDE1OCAyNzYgMTU4IDI3NiIgZmlsbD0iI0ZGMjc0MSIvPjxwYXRoIGQ9Ik0yODQgMTcwQzI4NCAxNjEuMiAyNzYuOCAxNTQgMjY4IDE1NEMyNTkuMiAxNTQgMjUyIDE2MS4yIDI1MiAxNzBDMjUyIDE3OC44IDI1OS4yIDE4NiAyNjggMTg2QzI3Ni44IDE4NiAyODQgMTc4LjggMjg0IDE3MFoiIGZpbGw9IiNGRjI3NDEiLz48cGF0aCBkPSJNMjUyIDExNkMyNTIgMTI0LjggMjU5LjEgMTMyIDI2OCAxMzJDMjc2LjggMTMyIDI4NCAxMjQuOSAyODQgMTE2QzI4NCAxMDcuMiAyNzYuOSAxMDAgMjY4IDEwMEMyNjggMTAwIDI2OCAxMDAgMjY4IDEwMEMyNTkuMSAxMDAgMjUyIDEwNy4xIDI1MiAxMTZaIiBmaWxsPSIjRkYyNzQxIi8+PHBhdGggZD0iTTI4NCAyMjRDMjg0IDIxNS4yIDI3Ni45IDIwOCAyNjggMjA4QzI1OS4yIDIwOCAyNTIgMjE1LjEgMjUyIDIyNEMyNTIgMjMyLjggMjU5LjEgMjQwIDI2OCAyNDBDMjY4IDI0MCAyNjggMjQwIDI2OCAyNDBDMjc2LjggMjQwIDI4NCAyMzIuOSAyODQgMjI0WiIgZmlsbD0iI0ZGMjc0MSIvPjxwYXRoIGQ9Ik0yMjggMTcyQzIyOCAxNjEgMjE5IDE1MiAyMDggMTUyQzE5NyAxNTIgMTg4IDE2MSAxODggMTcyQzE4OCAxODMgMTk3IDE5MiAyMDggMTkyQzIxOSAxOTIgMjI4IDE4MyAyMjggMTcyWiIgZmlsbD0iI0ZGMjc0MSIvPjxwYXRoIGQ9Ik0xOTAgMTE2QzE5MCAxMjUuOSAxOTguMSAxMzQgMjA4IDEzNEMyMTcuOSAxMzQgMjI2IDEyNS45IDIyNiAxMTZDMjI2IDEwNi4xIDIxNy45IDk4IDIwOCA5OEMyMDggOTggMjA4IDk4IDIwOCA5OEMxOTguMSA5OCAxOTAgMTA2LjEgMTkwIDExNkMxOTAgMTE2IDE5MCAxMTYgMTkwIDExNloiIGZpbGw9IiNGRjI3NDEiLz48cGF0aCBkPSJNMTkyIDY0QzE5MiA3Mi44IDE5OS4yIDgwIDIwOCA4MEMyMTYuOCA4MCAyMjQgNzIuOCAyMjQgNjRDMjI0IDU1LjIgMjE2LjggNDggMjA4IDQ4QzE5OS4yIDQ4IDE5MiA1NS4yIDE5MiA2NFoiIGZpbGw9IiNGRjI3NDEiLz48cGF0aCBkPSJNMjI2IDIyNEMyMjYgMjE0LjEgMjE4IDIwNiAyMDggMjA2QzE5OC4xIDIwNiAxOTAgMjE0IDE5MCAyMjRDMTkwIDIzMy45IDE5OCAyNDIgMjA4IDI0MkMyMDggMjQyIDIwOCAyNDIgMjA4IDI0MkMyMTcuOSAyNDIgMjI2IDIzNCAyMjYgMjI0IiBmaWxsPSIjRkYyNzQxIi8+PHBhdGggZD0iTTIyNCAyNzZDMjI0IDI2Ny4yIDIxNi44IDI2MCAyMDggMjYwQzE5OS4yIDI2MCAxOTIgMjY3LjIgMTkyIDI3NkMxOTIgMjg0LjggMTk5LjIgMjkyIDIwOCAyOTJDMjE2LjggMjkyIDIyNCAyODQuOSAyMjQgMjc2LjFDMjI0IDI3Ni4xIDIyNCAyNzYgMjI0IDI3NloiIGZpbGw9IiNGRjI3NDEiLz48cGF0aCBkPSJNOTYgMTcyQzk2IDE2MSA4NyAxNTIgNzYgMTUyQzY1IDE1MiA1NiAxNjEgNTYgMTcyQzU2IDE4MyA2NSAxOTIgNzYgMTkyQzg3IDE5MiA5NiAxODMgOTYgMTcyWiIgZmlsbD0iI0ZGMjc0MSIvPjxwYXRoIGQ9Ik01OCAxMTZDNTggMTI1LjkgNjYuMSAxMzQgNzYgMTM0Qzg1LjkgMTM0IDk0IDEyNS45IDk0IDExNkM5NCAxMDYuMSA4NS45IDk4IDc2IDk4QzY2LjEgOTggNTggMTA2LjEgNTggMTE2WiIgZmlsbD0iI0ZGMjc0MSIvPjxwYXRoIGQ9Ik02MCA2NEM2MCA3Mi44IDY3LjIgODAgNzYgODBDODQuOCA4MCA5MiA3Mi44IDkyIDY0QzkyIDU1LjIgODQuOCA0OCA3NiA0OEM2Ny4yIDQ4IDYwIDU1LjIgNjAgNjRaIiBmaWxsPSIjRkYyNzQxIi8+PHBhdGggZD0iTTk0IDIyNEM5NCAyMTQuMSA4NiAyMDYgNzYgMjA2QzY2LjEgMjA2IDU4IDIxNCA1OCAyMjRDNTggMjMzLjkgNjYgMjQyIDc2IDI0MkM3NiAyNDIgNzYgMjQyIDc2IDI0MkM4NS45IDI0MiA5NCAyMzQgOTQgMjI0IiBmaWxsPSIjRkYyNzQxIi8+PHBhdGggZD0iTTkyIDI3NkM5MiAyNjcuMiA4NC44IDI2MCA3NiAyNjBDNjcuMiAyNjAgNjAgMjY3LjIgNjAgMjc2QzYwIDI4NC44IDY3LjIgMjkyIDc2IDI5MkM4NC44IDI5MiA5MiAyODQuOSA5MiAyNzYuMUM5MiAyNzYuMSA5MiAyNzYgOTIgMjc2WiIgZmlsbD0iI0ZGMjc0MSIvPjxwYXRoIGQ9Ik0zMiAxNzBDMzIgMTYxLjIgMjQuOCAxNTQgMTYgMTU0QzcuMiAxNTQgMCAxNjEuMiAwIDE3MEMwIDE3OC44IDcuMiAxODYgMTYgMTg2QzI0LjggMTg2IDMyIDE3OC44IDMyIDE3MFoiIGZpbGw9IiNGRjI3NDEiLz48cGF0aCBkPSJNMCAxMTZDMCAxMjQuOCA3LjEgMTMyIDE2IDEzMkMyNC44IDEzMiAzMiAxMjQuOSAzMiAxMTZDMzIgMTA3LjIgMjQuOSAxMDAgMTYgMTAwQzE2IDEwMCAxNiAxMDAgMTYgMTAwQzcuMSAxMDAgMCAxMDcuMSAwIDExNloiIGZpbGw9IiNGRjI3NDEiLz48cGF0aCBkPSJNMzIgMjI0QzMyIDIxNS4yIDI0LjkgMjA4IDE2IDIwOEM3LjIgMjA4IDAgMjE1LjEgMCAyMjRDMCAyMzIuOCA3LjEgMjQwIDE2IDI0MEMxNiAyNDAgMTYgMjQwIDE2IDI0MEMyNC44IDI0MCAzMiAyMzIuOSAzMiAyMjQuMUMzMiAyMjQuMSAzMiAyMjQuMSAzMiAyMjRaIiBmaWxsPSIjRkYyNzQxIi8+PHBhdGggZD0iTTEzNzkuMiAyMDEuOUMxMzg2LjUgMjA4LjMgMTM5NCAyMTMuMyAxNDAxLjcgMjE2LjlDMTQwOS41IDIyMC4yIDE0MTguMSAyMjEuOSAxNDI3LjQgMjIxLjlDMTQzOC4zIDIyMS45IDE0NDcuMyAyMTguOSAxNDU0LjUgMjEzQzE0NjEuOSAyMDcgMTQ2NS41IDE5OC43IDE0NjUuNSAxODhDMTQ2NS41IDE3OS43IDE0NjIuNyAxNzIuNCAxNDU3IDE2NkMxNDUxLjUgMTU5LjUgMTQ0Mi43IDE1Ni4zIDE0MzAuNiAxNTYuM0MxNDI2IDE1Ni4zIDE0MjEuOCAxNTYuOCAxNDE3LjcgMTU3LjhDMTQxMy45IDE1OC41IDE0MTAuOSAxNTkuMyAxNDA4LjggMTYwLjNMMTM5NS42IDEzOS4zTDE0NTMgODAuNUgxMzc5LjJMMTM3OS4yIDM2TDE1MTAuNSAzNlY3Mi43TDE0NjMuOCAxMjUuNEMxNDgxLjYgMTI4LjcgMTQ5NSAxMzYuMiAxNTA0LjEgMTQ3LjhDMTUxMy40IDE1OS40IDE1MTggMTc0IDE1MTggMTkxLjZDMTUxOCAyMDMuNSAxNTE1LjUgMjE0IDE1MTAuNSAyMjMuM0MxNTA1LjggMjMyLjUgMTQ5OS4zIDI0MC40IDE0OTEuMiAyNDYuOEMxNDgzLjEgMjUyLjkgMTQ3My43IDI1Ny43IDE0NjMgMjYxQzE0NTIuNiAyNjQuMyAxNDQxLjYgMjY2IDE0MzAuMiAyNjZDMTQxMy42IDI2NiAxMzk4LjYgMjYzLjUgMTM4NS4yIDI1OC41QzEzNzIuMiAyNTMuNSAxMzY3LjkgMjUwLjQgMTM1NiAyNDIuOUwxMzc5LjIgMjAxLjlaIiBmaWxsPSIjRkYyNzQxIi8+PHBhdGggZD0iTTEyNTIuOSAzMThDMTI0Ny40IDMxOCAxMjQxLjIgMzE2LjkgMTIzNC41IDMxNC42QzEyMjggMzEyLjYgMTIyMi4xIDMxMC4xIDEyMTcgMzA3LjNMMTIzMiAyNzQuNUMxMjM1LjUgMjc2LjQgMTIzOC43IDI3Ny44IDEyNDEuNSAyNzguOEMxMjQ0LjYgMjgwIDEyNDcuMyAyODAuNiAxMjQ5LjUgMjgwLjZDMTI1My44IDI4MC42IDEyNTcuNiAyNzkuNCAxMjYwLjggMjc3QzEyNjQuMSAyNzQuNyAxMjY2LjggMjcxLjQgMTI2OC44IDI2Ni45TDEyODYuOSAyMjQuM0wxMzM1LjYgMTAwSDEzODBMMTMxMC41IDI2Ni4zQzEzMDYuMiAyNzYuNSAxMzAxLjcgMjg1LjQgMTI5NyAyOTMuMkMxMjkyLjMgMzAxLjIgMTI4Ni41IDMwNy4zIDEyNzkuNSAzMTEuNkMxMjcyLjggMzE1LjkgMTI2My45IDMxOCAxMjUyLjkgMzE4Wk0xMjc2LjIgMjUzLjFMMTIwNiAxMDBIMTI1MC40TDEzMDEuNiAyMjQuM0wxMzE0LjggMjUzLjFIMTI3Ni4yWiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNMTE2My45IDI1OEMxMTQ3IDI1OCAxMTM0LjIgMjUzLjggMTEyNS41IDI0NS41QzExMTcgMjM3LjEgMTExMi43IDIyNS4yIDExMTIuNyAyMDkuN1Y1NEgxMTUyLjlWMjAwLjlDMTE1Mi45IDIwNy40IDExNTQuMyAyMTIuNCAxMTU3LjIgMjE1LjlDMTE2MCAyMTkuMSAxMTY0LjIgMjIwLjcgMTE2OS43IDIyMC43QzExNzEuNyAyMjAuNyAxMTczLjkgMjIwLjMgMTE3Ni40IDIxOS41QzExNzguOCAyMTguNSAxMTgxLjMgMjE3LjEgMTE4NCAyMTUuMkwxMTk4IDI0NS41QzExOTMuMSAyNDkuMSAxMTg3LjYgMjUyLjEgMTE4MS42IDI1NC4zQzExNzUuNyAyNTYuOCAxMTY5LjggMjU4IDExNjMuOSAyNThaTTEwODggMTM1LjhWMTAxLjZIMTE5MVYxMzUuOEgxMDg4WiIgZmlsbD0id2hpdGUiLz48cGF0aCBkPSJNOTMwIDI1NFYxMDEuN0g5NjhMOTcwLjUgMTI5LjdWMjU0SDkzMFpNMTAzMS41IDI1NFYxNzZIMTA3MlYyNTRIMTAzMS41Wk0xMDMxLjUgMTc2QzEwMzEuNSAxNjUuNiAxMDMwLjMgMTU3LjYgMTAyNy44IDE1MS45QzEwMjUuNiAxNDYuMiAxMDIyLjMgMTQyLjIgMTAxOCAxMzkuN0MxMDEzLjcgMTM3LjEgMTAwOC43IDEzNS44IDEwMDMgMTM1LjhDOTkyLjYgMTM1LjYgOTg0LjUgMTM4LjcgOTc4LjggMTQ1LjJDOTczLjIgMTUxLjcgOTcwLjUgMTYxLjQgOTcwLjUgMTc0LjJIOTU3Qzk1NyAxNTcuOSA5NTkuMyAxNDQuMiA5NjQgMTMzQzk2OC45IDEyMS43IDk3NS43IDExMyA5ODQuMyAxMDcuMUM5OTMuMSAxMDEgMTAwMy4zIDk4IDEwMTUgOThDMTAyNyA5OCAxMDM3LjMgMTAwLjQgMTA0NS45IDEwNS4zQzEwNTQuNSAxMTAuMiAxMDYxLjEgMTE3LjggMTA2NS42IDEyOC4yQzEwNzAgMTM4LjMgMTA3Mi4yIDE1MS41IDEwNzIgMTY3LjhWMTc2SDEwMzEuNVoiIGZpbGw9IndoaXRlIi8+PHBhdGggZD0iTTgzMy4zIDI1OEM4MTguMiAyNTggODA0LjkgMjU0LjYgNzkzLjMgMjQ3LjlDNzgxLjcgMjQxIDc3Mi41IDIzMS41IDc2NS44IDIxOS41Qzc1OS4zIDIwNy41IDc1NiAxOTMuNyA3NTYgMTc4Qzc1NiAxNjIuMyA3NTkuNCAxNDguNSA3NjYuMSAxMzYuNUM3NzMgMTI0LjUgNzgyLjQgMTE1LjEgNzk0LjIgMTA4LjRDODA2LjIgMTAxLjUgODIwIDk4IDgzNS40IDk4Qzg0OC45IDk4IDg2MS4yIDEwMS42IDg3Mi40IDEwOC43Qzg4My44IDExNS42IDg5Mi45IDEyNS45IDg5OS42IDEzOS41QzkwNi41IDE1MyA5MTAgMTY5LjMgOTEwIDE4OC43SDc5NC4yTDc5Ny45IDE4NUM3OTcuOSAxOTIuNiA3OTkuNyAxOTkuMiA4MDMuNCAyMDQuOUM4MDcuMiAyMTAuNCA4MTIuMSAyMTQuNiA4MTggMjE3LjdDODI0LjEgMjIwLjUgODMwLjcgMjIyIDgzNy42IDIyMkM4NDUuOSAyMjIgODUyLjggMjIwLjIgODU4LjEgMjE2LjhDODYzLjQgMjEzLjEgODY3LjQgMjA4LjQgODcwLjMgMjAyLjdMOTA2LjMgMjE2LjhDOTAyLjEgMjI1LjMgODk2LjUgMjMyLjggODg5LjUgMjM5LjFDODgyLjggMjQ1LjIgODc0LjggMjQ5LjkgODY1LjQgMjUzLjFDODU2IDI1Ni40IDg0NS4zIDI1OCA4MzMuMyAyNThaTTgwMCAxNjIuNEw3OTYuMyAxNTguOEg4NzBMODY2LjYgMTYyLjRDODY2LjYgMTU1LjEgODY0LjkgMTQ5LjMgODYxLjQgMTQ1Qzg1OCAxNDAuNSA4NTMuNyAxMzcuMyA4NDguNiAxMzUuM0M4NDMuNyAxMzMuMiA4MzguOSAxMzIuMiA4MzQuMiAxMzIuMkM4MjkuNSAxMzIuMiA4MjQuNSAxMzMuMiA4MTkuMyAxMzUuM0M4MTQgMTM3LjMgODA5LjQgMTQwLjUgODA1LjUgMTQ1QzgwMS44IDE0OS4zIDgwMCAxNTUuMSA4MDAgMTYyLjRaIiBmaWxsPSJ3aGl0ZSIvPjxwYXRoIGQ9Ik02NjAgMjUyTDcxMC45IDEwMEg3NTJMNjk5LjkgMjUySDY2MFpNNTU4LjEgMjUyTDYwNy4yIDEwMEg2NDIuNUw1OTQgMjUySDU1OC4xWk01NTQuMSAyNTJMNTAyIDEwMEg1NDMuMUw1OTEuOSAyNTJINTU0LjFaTTY2MCAyNTJMNjEyLjEgMTAwSDY0Ny4xTDY5NS45IDI1Mkg2NjBaIiBmaWxsPSJ3aGl0ZSIvPjxwYXRoIGQ9Ik00NTkuOSAyNThDNDQzIDI1OCA0MzAuMiAyNTMuOCA0MjEuNSAyNDUuNUM0MTIuOSAyMzcuMSA0MDguNyAyMjUuMiA0MDguNyAyMDkuN1Y1NEg0NDguOVYyMDAuOUM0NDguOSAyMDcuNCA0NTAuMyAyMTIuNCA0NTMuMiAyMTUuOUM0NTYgMjE5LjEgNDYwLjIgMjIwLjcgNDY1LjcgMjIwLjdDNDY3LjcgMjIwLjcgNDY5LjkgMjIwLjMgNDcyLjQgMjE5LjVDNDc0LjggMjE4LjUgNDc3LjMgMjE3LjEgNDgwIDIxNS4yTDQ5NCAyNDUuNUM0ODkuMSAyNDkuMSA0ODMuNiAyNTIuMSA0NzcuNSAyNTQuM0M0NzEuNyAyNTYuOCA0NjUuOCAyNTggNDU5LjkgMjU4Wk0zODQgMTM1LjhWMTAxLjZINDg3VjEzNS44SDM4NFoiIGZpbGw9IndoaXRlIi8+PC9zdmc+Cg==", scale: 1.45 }
+};
+</script>
+<style>
+:root{
+  --bg:#111317; --bg-2:#16181d; --card:#1b1d22; --line:rgba(255,255,255,.09);
+  --text:#e8eaed; --muted:#bdc1c6; --dim:rgba(232,234,237,.55); --accent:#8AB4F8;
+  --break:#3c4043; --radius:18px; --max:1080px;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --display:"Inter Tight","Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 var(--font);-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:20;background:rgba(11,15,25,.0);transition:background .25s,border-color .25s;border-bottom:1px solid transparent}
+.topbar.is-scrolled{background:rgba(11,15,25,.92);backdrop-filter:blur(12px);border-color:var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:56px}
+.lockup{display:flex;align-items:center;gap:10px;font:600 15px var(--display);letter-spacing:-.01em;color:#fff;text-decoration:none}
+.brand{display:block;width:auto}
+.lockup .x{color:var(--dim);font-weight:400;font-size:12px}
+.nav{display:flex;gap:4px;align-items:center}
+.nav a{color:rgba(255,255,255,.72);text-decoration:none;padding:7px 13px;border-radius:999px;font-size:14px}
+.nav a.active{background:rgba(255,255,255,.14);color:#fff}
+.nav a.cta{background:#fff;color:#0b0f19;font-weight:500;margin-left:6px}
+
+/* hero */
+.hero{position:relative;padding:72px 0 40px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:-200px -10% auto auto;width:900px;height:600px;background:radial-gradient(closest-side,rgba(76,141,246,.22),transparent);pointer-events:none}
+.eyebrow{display:flex;align-items:center;gap:14px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.eyebrow i{width:28px;height:1px;background:var(--line)}
+.hero .big-lockup{margin:22px 0 14px;font:600 28px var(--display);display:flex;gap:14px;align-items:center;letter-spacing:-.02em}
+.hero .big-lockup .x{color:var(--dim);font-size:16px;font-weight:400}
+h1{font:500 clamp(38px,6vw,58px)/1.08 var(--display);letter-spacing:-.03em;margin:0;max-width:16ch}
+.lede{font-size:18px;color:var(--muted);max-width:52ch;margin:22px 0 0}
+.live-pill{display:inline-flex;align-items:center;gap:8px;margin:24px 0 0;padding:6px 14px;border-radius:999px;background:rgba(138,180,248,.12);color:var(--accent);font-size:13px;font-weight:500}
+.live-pill[hidden]{display:none}
+.live-pill.is-live::before{content:"";width:8px;height:8px;border-radius:50%;background:#f28b82;box-shadow:0 0 0 0 rgba(242,139,130,.6);animation:pulse 1.6s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 8px rgba(242,139,130,0)}100%{box-shadow:0 0 0 0 rgba(242,139,130,0)}}
+
+/* at-a-glance strip */
+.glance{margin-top:56px}
+.glance-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.legend{display:flex;gap:16px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;align-items:center;gap:7px}
+.legend b{width:9px;height:9px;border-radius:3px;display:inline-block}
+.strip{position:relative;display:flex;gap:4px}
+.seg{flex:var(--m) 1 0;min-width:0;text-decoration:none;color:var(--text)}
+.seg .bar{display:block;height:8px;border-radius:4px;background:var(--c);transition:transform .2s,filter .2s}
+.seg:hover .bar{filter:brightness(1.15);transform:scaleY(1.4)}
+.seg .cap{display:block;margin-top:10px;font-size:12px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.seg .cap time{display:block;font-weight:600}
+.seg .cap span{color:var(--muted)}
+.seg--tiny .cap span{display:none}
+.seg.is-past .bar{opacity:.35}
+.now-marker{position:absolute;top:-6px;width:2px;height:20px;background:#f28b82;border-radius:2px;box-shadow:0 0 0 3px rgba(242,139,130,.25);display:none}
+
+/* logistics */
+.logistics{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr) auto;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.logistics>div{padding:26px;border-right:1px solid var(--line)}
+.logistics>div:last-child{border-right:0;display:flex;flex-direction:column;gap:10px;justify-content:center;min-width:220px}
+.logistics .k{display:flex;align-items:center;gap:8px;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.logistics .k svg{width:15px;height:15px;stroke:var(--accent)}
+.logistics .v{font:500 19px var(--display);margin:12px 0 4px;letter-spacing:-.01em}
+.logistics .s{font-size:13px;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid var(--line);background:transparent;color:#fff;font:500 14px var(--font);cursor:pointer;text-decoration:none;white-space:nowrap}
+.btn:hover{background:rgba(255,255,255,.08)}
+.btn--primary{background:var(--accent);color:#0b0f19;border-color:transparent}
+.btn--primary:hover{background:#a8c7fa}
+.btn--ghost{border-color:transparent;color:var(--accent)}
+
+/* sections */
+.section{padding:96px 0;border-top:1px solid var(--line)}
+.section:nth-of-type(even){background:var(--bg-2)}
+.grid{display:grid;grid-template-columns:260px 1fr;gap:56px}
+.sec-head{position:sticky;top:92px;align-self:start}
+.sec-num{color:var(--accent);font-size:13px;font-weight:500}
+h2{font:500 30px/1.15 var(--display);letter-spacing:-.02em;margin:10px 0 12px}
+.sec-head p{color:var(--muted);font-size:14px;margin:0}
+
+/* attendees */
+.people{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.org-head{display:flex;justify-content:space-between;align-items:center;padding-bottom:12px;border-bottom:1px solid rgba(255,255,255,.4)}
+.org-head strong{font:600 17px var(--display)}
+.org-head span{font-size:12px;color:var(--muted)}
+.person{display:flex;gap:14px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.av{flex:none;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:600;color:var(--muted);background:#232630;border:1px solid var(--line)}
+.person .n{font-weight:500}
+.person .r{font-size:13px;color:var(--muted)}
+.person .note{color:var(--dim)}
+
+/* outcomes */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.card .num{font:500 13px var(--display);color:var(--accent);display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:rgba(138,180,248,.12)}
+.card h3{font:500 18px/1.3 var(--display);margin:18px 0 8px}
+.card p{margin:0;color:var(--muted);font-size:14px}
+.card a{display:inline-block;margin-top:12px;font-size:14px;text-decoration:none}
+
+/* agenda */
+.range{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:0 0 6px}
+.now-status{font-size:14px;color:var(--accent);min-height:1.5em;margin:0 0 8px}
+.block{display:grid;grid-template-columns:140px 1fr;gap:20px;padding:30px 0;border-bottom:1px solid var(--line);transition:opacity .3s}
+.block .t{font:500 21px var(--display)}
+.block .to{font-size:13px;color:var(--muted)}
+.dur{display:inline-block;margin-top:8px;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.08);font-size:12px;color:var(--muted)}
+.tag{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.tag i{width:8px;height:8px;border-radius:50%;background:var(--g,var(--c))}
+.block h3{font:500 21px/1.3 var(--display);margin:10px 0 8px;letter-spacing:-.01em}
+.block .who{font-size:14px;color:var(--muted);margin:0 0 6px}
+.block .sum{color:var(--muted);margin:0 0 6px}
+.block ul{margin:12px 0 0;padding:0;list-style:none}
+.block li{position:relative;padding-left:16px;margin:6px 0;font-size:14px;color:var(--muted)}
+.block li::before{content:"\2013";position:absolute;left:0;color:var(--dim)}
+.block li b{color:var(--text);font-weight:500}
+.block li ul{margin:4px 0 0}
+.block.break{grid-template-columns:140px 1fr;padding:14px 0;align-items:center}
+.block.break .t{font-size:15px;color:var(--muted)}
+.block.break .bt{color:var(--muted)}
+.block .prog{height:3px;border-radius:2px;background:rgba(255,255,255,.08);margin-top:18px;overflow:hidden;display:none}
+.block .prog i{display:block;height:100%;background:var(--c);width:0}
+.block.is-now{position:relative}
+.block.is-now::before{content:"";position:absolute;left:-24px;top:24px;bottom:24px;width:3px;border-radius:2px;background:#f28b82}
+.block.is-now .prog{display:block}
+.block.is-now .tag::after{content:"Now";margin-left:6px;padding:1px 8px;border-radius:999px;background:rgba(242,139,130,.16);color:#f28b82;letter-spacing:.08em}
+.block.is-past{opacity:.45}
+.social{margin-top:28px;display:grid;grid-template-columns:140px 1fr;gap:20px;padding:28px;border-radius:var(--radius);background:rgba(242,166,12,.08);border:1px solid rgba(246,194,91,.2)}
+.social .tag{color:#f6c25b}.social .tag i{background:#f6c25b}
+.social h3{font:500 21px var(--display);margin:10px 0 4px}
+.social p{margin:0 0 14px;color:var(--muted);font-size:14px}
+.social .sign{font:600 12px var(--display);letter-spacing:.2em;text-transform:uppercase;color:#f6c25b;margin-left:14px}
+
+/* actions */
+.table{width:100%;border-collapse:collapse;font-size:14px}
+.table th{text-align:left;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0 12px 12px 0;border-bottom:1px solid rgba(255,255,255,.4)}
+.table td{padding:14px 12px 14px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.chip i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+.status{font-size:12px;padding:2px 9px;border-radius:999px;background:rgba(255,255,255,.08);color:var(--muted)}
+.status.done{background:rgba(129,201,149,.15);color:#81c995}
+
+footer{border-top:1px solid var(--line);padding:32px 0 48px;color:var(--dim);font-size:13px}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center}
+footer button{background:none;border:1px solid var(--line);color:var(--muted);border-radius:999px;padding:6px 14px;font:13px var(--font);cursor:pointer}
+
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);background:#fff;color:#202124;padding:10px 18px;border-radius:999px;font-size:14px;opacity:0;pointer-events:none;transition:.25s;z-index:50}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+.reveal.is-visible{opacity:1;transform:none}
+.block.is-past,.social.is-past,.reveal.is-visible.is-past{opacity:.45}
+.social.is-now{border-color:rgba(246,194,91,.75);box-shadow:0 0 0 1px rgba(246,194,91,.35)}
+.social.is-now .tag::after{content:"Now";margin-left:6px;padding:1px 8px;border-radius:999px;background:rgba(246,194,91,.18);color:#f6c25b;letter-spacing:.08em}
+.local-time{font-size:12px;color:var(--accent);margin-top:6px}
+@media (prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}.live-pill.is-live::before{animation:none}}
+
+@media (max-width:900px){
+  .grid{grid-template-columns:1fr;gap:28px}.sec-head{position:static}
+  .logistics{grid-template-columns:1fr}.logistics>div{border-right:0;border-bottom:1px solid var(--line)}
+  .cards{grid-template-columns:1fr}.people{grid-template-columns:1fr}
+  .nav a:not(.cta):not(.keep){display:none}
+}
+@media (max-width:600px){
+  .block,.block.break,.social{grid-template-columns:1fr;gap:6px}
+  .seg .cap span{display:none}.seg--tiny .cap time{visibility:hidden}.seg .cap{font-size:11px}
+  .table thead{display:none}.table td{display:block;padding:4px 0;border:0}.table tr{display:block;padding:12px 0;border-bottom:1px solid var(--line)}
+}
+@media print{
+  :root{--bg:#fff;--bg-2:#fff;--card:#fff;--text:#111;--muted:#444;--dim:#666;--line:#ddd}
+  .topbar,footer,.logistics>div:last-child,.toast,.now-marker{display:none!important}
+  .hero::before{display:none}.section{padding:28px 0;break-inside:avoid}.reveal{opacity:1;transform:none}
+  .block.is-past{opacity:1}.sec-head{position:static}
+}
+</style>
+</head>
+<body>
+<nav class="topbar" id="topbar"><div class="wrap">
+  <a class="lockup" href="#overview" id="lockup-sm"></a>
+  <div class="nav" id="nav"></div>
+</div></nav>
+
+<main id="main"></main>
+<footer><div class="wrap">
+  <span id="foot-note"></span>
+  <span><button id="sim">Preview live view</button></span>
+</div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+const W = window.WORKSHOP;
+const $ = (s, el=document) => el.querySelector(s);
+const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const initials = n => n.split(/\s+/).filter(Boolean).slice(0,2).map(p=>p[0]).join("").toUpperCase();
+const leadOf = k => W.leads[k] || { label: "", color: "var(--break)" };
+const solid = c => c.startsWith("linear") ? (c.match(/#[0-9a-f]{3,8}/i)||["#8AB4F8"])[0] : c;
+
+/* ---------- time maths (event timezone aware) ---------- */
+function tzOffset(ms, tz){
+  const p = {}; new Intl.DateTimeFormat("en-US",{timeZone:tz,hourCycle:"h23",year:"numeric",month:"2-digit",day:"2-digit",hour:"2-digit",minute:"2-digit",second:"2-digit"})
+    .formatToParts(new Date(ms)).forEach(x => p[x.type] = x.value);
+  return Date.UTC(+p.year, p.month-1, +p.day, +p.hour % 24, +p.minute, +p.second) - ms;
+}
+function zoned(dateStr, mins){
+  const [y,m,d] = dateStr.split("-").map(Number);
+  const guess = Date.UTC(y, m-1, d, 0, mins);
+  let t = guess - tzOffset(guess, W.timezone);
+  const o2 = tzOffset(t, W.timezone); if (guess - o2 !== t) t = guess - o2;
+  return t;
+}
+const toMins = hm => { const [h,m] = hm.split(":").map(Number); return h*60 + m; };
+const clock = (mins, withAmPm) => { const h = Math.floor(mins/60)%24, m = mins%60, h12 = ((h+11)%12)+1;
+  return h12 + ":" + String(m).padStart(2,"0") + (withAmPm ? (h<12?" AM":" PM") : ""); };
+
+let cursor = toMins(W.start);
+const blocks = W.agenda.map((b,i) => {
+  const fixed = b.type === "social" && b.time;            // social can have its own start time
+  const s = fixed ? toMins(b.time) : cursor, mins = b.type === "social" ? 0 : (b.minutes||0);
+  if (!fixed) cursor += mins;
+  return Object.assign({}, b, { id: "b"+(i+1), s, e: s+mins, mins, t0: zoned(W.date, s), t1: zoned(W.date, s+mins) });
+});
+const timed = blocks.filter(b => b.type !== "social");
+const socials = blocks.filter(b => b.type === "social");
+socials.forEach((b,i) => { b.t1 = b.until ? zoned(W.date, toMins(b.until)) : (socials[i+1] ? socials[i+1].t0 : b.t0 + 3*3600000); });
+const evStart = toMins(W.start), evEnd = cursor;
+const T0 = zoned(W.date, evStart), T1 = zoned(W.date, evEnd);
+const dateLong = new Intl.DateTimeFormat(W.locale||"en-US",{timeZone:W.timezone,weekday:"long",month:"long",day:"numeric"}).format(T0);
+const dateCard = new Intl.DateTimeFormat(W.locale||"en-US",{timeZone:W.timezone,weekday:"long",month:"short",day:"numeric",year:"numeric"}).format(T0);
+const rangeTxt = `${clock(evStart)}\u2013${clock(evEnd,true)} ${W.tzLabel}`;
+
+// If the viewer is in a different time zone, show the session in their local time too
+function localLine(){
+  try {
+    const here = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    if (!here || tzOffset(T0, here) === tzOffset(T0, W.timezone)) return "";
+    const f = o => new Intl.DateTimeFormat(undefined, Object.assign({timeZone: here, hour:"numeric", minute:"2-digit"}, o));
+    const day = new Intl.DateTimeFormat(undefined,{timeZone:here, weekday:"short"}).format(T0);
+    const tz = f({timeZoneName:"short"}).formatToParts(T0).find(p=>p.type==="timeZoneName")?.value || "";
+    return `<div class="local-time">Your time: ${day} ${f({}).format(T0)}\u2013${f({}).format(T1)} ${tz}</div>`;
+  } catch(e){ return ""; }
+}
+
+/* ---------- icons ---------- */
+const ico = {
+  cal:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>',
+  pin:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 21s-7-6.2-7-11a7 7 0 1 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
+  vid:'<svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>'
+};
+
+/* ---------- build page ---------- */
+const LG = window.WORKSHOP_LOGOS || {};
+const brand = (side, h) => { const o = side === "host" ? W.host : W.client, l = LG[side];
+  return l && l.src ? `<img class="brand" src="${l.src}" alt="${esc(o.name)}" style="height:${Math.round(h*(l.scale||1))}px">` : esc(o.name); };
+const lockupAt = h => `${brand("host",h)} <span class="x">\u00d7</span> ${brand("client",h)}`;
+$("#lockup-sm").innerHTML = lockupAt(15);
+document.title = `${W.host.name} \u00d7 ${W.client.name} \u2014 ${W.title} \u00b7 ${dateCard}`;
+
+const sections = [];
+let n = 0;
+const num = () => String(++n).padStart(2,"0");
+const head = (id, title, intro) => `<div class="sec-head reveal"><div class="sec-num">${num()}</div><h2 id="${id}-title">${esc(title)}</h2>${intro?`<p>${esc(intro)}</p>`:""}</div>`;
+
+// Hero
+const usedLeads = [...new Set(timed.filter(b=>b.lead).map(b=>b.lead))];
+const strip = timed.map(b => {
+  const L = b.type === "break" ? {color:"var(--break)"} : leadOf(b.lead);
+  const label = b.type === "break" ? "Break" : (b.short || b.title);
+  const tiny = b.type === "break" || b.mins / timed.reduce((a,x)=>a+x.mins,0) < 0.07;
+  return `<a class="seg${tiny?" seg--tiny":""}" style="--m:${b.mins};--c:${L.color}" href="#${b.id}" data-id="${b.id}"><span class="bar"></span><span class="cap" aria-hidden="true"><time>${clock(b.s)}</time><span>${esc(label)}</span></span><span class="vh">${esc(b.title||"Break")}, ${esc(L.label||"")} ${b.mins} minutes</span></a>`;
+}).join("") + `<span class="now-marker" id="now-marker"></span>`;
+
+const remoteCell = W.remote ? `<div><div class="k">${ico.vid} Join remotely</div><div class="v">${esc(W.remote.label)}</div><a class="s" href="${esc(W.remote.url)}">${esc(W.remote.display || W.remote.url.replace(/^https?:\/\//,""))}</a></div>` : "";
+sections.push(`<section id="overview" class="hero"><div class="wrap">
+  <div class="eyebrow reveal">${esc(W.eyebrow[0])}${W.eyebrow[1]?`<i></i>${esc(W.eyebrow[1])}`:""}</div>
+  <div class="big-lockup reveal">${lockupAt(30)}</div>
+  <h1 id="page-title" class="reveal">${esc(W.title)}</h1>
+  <p class="lede reveal">${esc(W.lede)}</p>
+  <p class="live-pill" id="live-pill" hidden></p>
+  <div class="glance reveal">
+    <div class="glance-head"><div class="label">At a glance \u00b7 ${esc(W.tzLabel)}</div>
+      <div class="legend">${usedLeads.map(k=>`<span><b style="background:${leadOf(k).color}"></b>${esc(leadOf(k).label)}</span>`).join("")}</div></div>
+    <nav class="strip" id="strip" aria-label="Agenda overview">${strip}</nav>
+  </div>
+  <div class="logistics reveal" style="${W.remote?"":"grid-template-columns:repeat(2,1fr) auto"}">
+    <div><div class="k">${ico.cal} When</div><div class="v">${esc(dateCard)}</div><div class="s">${esc(rangeTxt)}${W.afterNote?`, ${esc(W.afterNote)}`:""}</div>${localLine()}</div>
+    <div><div class="k">${ico.pin} Where</div><div class="v">${esc(W.where.title)}</div><div class="s">${esc(W.where.detail)}</div></div>
+    ${remoteCell}
+    <div>
+      ${W.remote?`<a class="btn btn--primary" href="${esc(W.remote.url)}">${ico.vid.replace('<svg','<svg width="16" height="16" stroke="currentColor"')} Join ${esc(W.remote.label)}</a>`:""}
+      <a class="btn" id="gcal" href="#">Add to Google Calendar</a>
+      <button class="btn" id="ics">Download .ics</button>
+      <button class="btn btn--ghost" id="copy-invite">Copy agenda as text</button>
+    </div>
+  </div>
+</div></section>`);
+
+// Attendees
+const people = (list=[]) => list.map(p => `<div class="person"><span class="av">${esc(initials(p.name))}</span><div><div class="n">${esc(p.name)}</div><div class="r">${esc(p.role)}${p.note?`<span class="note">${p.role?" \u00b7 ":""}${esc(p.note)}</span>`:""}</div></div></div>`).join("");
+const hostP = W.attendees?.host||[], cliP = W.attendees?.client||[];
+if (hostP.length || cliP.length) sections.push(`<section id="attendees" class="section"><div class="wrap grid">${head("attendees","Who\u2019s in the room",W.attendeesIntro)}
+  <div class="people reveal">
+    <div><div class="org-head"><strong>${brand("host",17)}</strong><span>${hostP.length} people</span></div>${people(hostP)}</div>
+    <div><div class="org-head"><strong>${brand("client",17)}</strong><span>${cliP.length} people</span></div>${people(cliP)}</div>
+  </div></div></section>`);
+
+// Outcomes
+if (W.outcomes?.length) sections.push(`<section id="objectives" class="section"><div class="wrap grid">${head("objectives",W.outcomesTitle||"What we want to leave with",W.outcomesIntro)}
+  <div class="cards">${W.outcomes.map((o,i)=>`<div class="card reveal"><span class="num">${String(i+1).padStart(2,"0")}</span><h3>${esc(o.title)}</h3><p>${esc(o.text)}</p></div>`).join("")}</div></div></section>`);
+
+// Prep
+if (W.prep?.length) sections.push(`<section id="prep" class="section"><div class="wrap grid">${head("prep","Before you arrive",W.prepIntro)}
+  <div class="cards">${W.prep.map((o,i)=>`<div class="card reveal"><span class="num">${String(i+1).padStart(2,"0")}</span><h3>${esc(o.title)}</h3><p>${esc(o.text)}</p>${o.link?`<a href="${esc(o.link.url)}">${esc(o.link.label)} \u2192</a>`:""}</div>`).join("")}</div></div></section>`);
+
+// Agenda
+const items = list => !list?.length ? "" : `<ul>${list.map(it => typeof it === "string" ? `<li>${esc(it)}</li>` :
+  `<li>${it.b?`<b>${esc(it.b)}</b> `:""}${esc(it.t||"")}${items(it.sub)}</li>`).join("")}</ul>`;
+const agendaHTML = blocks.map(b => {
+  if (b.type === "break") return `<article class="block break reveal" id="${b.id}" style="--c:var(--break)"><div class="t">${clock(b.s)}</div><div class="bt">Break \u00b7 ${b.mins} min</div></article>`;
+  if (b.type === "social") return `<article class="social reveal" id="${b.id}"><div><div style="font:500 21px var(--display)">${clock(b.s)}</div><div style="font-size:13px;color:var(--muted)">${b.until ? `to ${clock(toMins(b.until),true)}` : `${clock(b.s,true).slice(-2)} onward`}</div></div>
+    <div><div class="tag"><i></i>${esc(b.tag||"Social")}</div><h3>${esc(b.title)}</h3><p>${esc(b.detail||"")}</p>${[].concat(b.link||[], b.links||[]).map(l=>`<a class="btn" href="${esc(l.url)}" style="margin:0 8px 8px 0">${esc(l.label)}</a>`).join("")}${b.sign?`<span class="sign">${esc(b.sign)}</span>`:""}</div></article>`;
+  const L = leadOf(b.lead);
+  return `<article class="block reveal" id="${b.id}" style="--c:${solid(L.color)};--g:${L.color}">
+    <div><div class="t">${clock(b.s)}</div><div class="to">to ${clock(b.e,true)}</div><span class="dur">${b.mins} min</span></div>
+    <div><div class="tag"><i></i>${esc(L.label)}</div><h3>${esc(b.title)}</h3>
+      ${b.presenters?`<p class="who">${esc(b.presenters)}</p>`:""}${b.summary?`<p class="sum">${esc(b.summary)}</p>`:""}${items(b.items)}
+      <div class="prog"><i></i></div></div></article>`;
+}).join("");
+sections.push(`<section id="agenda" class="section"><div class="wrap grid">${head("agenda","Run of show",`${dateLong}. All times ${W.tzLabel}.`)}
+  <div><p class="range">${esc(rangeTxt)}${W.afterNote?` \u00b7 ${esc(W.afterNote)}`:""}</p><p class="now-status" id="now-status" aria-live="polite"></p>${agendaHTML}</div></div></section>`);
+
+// Actions
+const sideName = s => s === "client" ? W.client.name : s === "host" ? W.host.name : "Both";
+const sideColor = s => s === "client" ? solid(leadOf("client").color) : s === "host" ? solid(leadOf("host").color) : "var(--muted)";
+if (W.actions?.length) sections.push(`<section id="actions" class="section"><div class="wrap grid">${head("actions","Decisions and next steps",W.actionsIntro)}
+  <div class="reveal"><table class="table"><thead><tr><th>Action</th><th>Owner</th><th>Due</th><th>Status</th></tr></thead><tbody>
+  ${W.actions.map(a=>`<tr><td>${esc(a.action)}</td><td>${esc(a.owner)}<br><span class="chip" style="--c:${sideColor(a.side)}"><i></i>${esc(sideName(a.side))}</span></td><td>${esc(a.due)}</td><td><span class="status${/done/i.test(a.status)?" done":""}">${esc(a.status)}</span></td></tr>`).join("")}
+  </tbody></table></div></div></section>`);
+
+$("#main").innerHTML = sections.join("");
+$("#foot-note").textContent = `${W.host.name} \u00d7 ${W.client.name} \u00b7 ${W.title}`;
+
+// Nav
+const navItems = [["overview","Overview"],["attendees","Attendees"],["objectives","Objectives"],["prep","Prep"],["agenda","Agenda"],["actions","Next steps"]].filter(([id])=>document.getElementById(id));
+$("#nav").innerHTML = navItems.map(([id,l])=>`<a href="#${id}" data-s="${id}" class="${id==="agenda"?"keep":""}">${l}</a>`).join("") + (W.remote?`<a class="cta" href="${esc(W.remote.url)}">Join</a>`:"");
+
+/* ---------- behaviour ---------- */
+const toast = msg => { const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),2200); };
+const copy = async (txt, ok) => { try { await navigator.clipboard.writeText(txt); toast(ok); } catch(e){ toast("Couldn\u2019t copy here \u2014 select and copy manually"); } };
+
+addEventListener("scroll", () => $("#topbar").classList.toggle("is-scrolled", scrollY > 10), {passive:true});
+
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting){ e.target.classList.add("is-visible"); io.unobserve(e.target);} }), {threshold:.12});
+document.querySelectorAll(".reveal").forEach(el => io.observe(el));
+
+const spy = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) document.querySelectorAll("#nav a[data-s]").forEach(a => a.classList.toggle("active", a.dataset.s === e.target.id)); }), {rootMargin:"-45% 0px -50% 0px"});
+navItems.forEach(([id]) => spy.observe(document.getElementById(id)));
+
+// Calendar + invite text
+const stamp = ms => new Date(ms).toISOString().replace(/[-:]/g,"").replace(/\.\d{3}/,"");
+const plainAgenda = blocks.map(b => b.type==="break" ? `${clock(b.s)}  Break (${b.mins} min)` :
+  b.type==="social" ? `${clock(b.s,true)}  ${b.tag||"Social"}: ${b.title}` : `${clock(b.s)}\u2013${clock(b.e)}  ${b.title}${b.lead?` [${leadOf(b.lead).label}]`:""}`).join("\n");
+const evTitle = `${W.host.name} \u00d7 ${W.client.name}: ${W.title}`;
+const loc = `${W.where.title}, ${W.where.detail}`;
+const details = `${W.lede}\n\n${dateCard}, ${rangeTxt}\n\nAgenda\n${plainAgenda}${W.remote?`\n\nJoin remotely: ${W.remote.url}`:""}`;
+$("#gcal").href = "https://calendar.google.com/calendar/render?action=TEMPLATE&text="+encodeURIComponent(evTitle)+"&dates="+stamp(T0)+"/"+stamp(T1)+"&location="+encodeURIComponent(loc)+"&details="+encodeURIComponent(details);
+const icsText = ["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Workshop template//EN","BEGIN:VEVENT","UID:"+T0+"@workshop","DTSTAMP:"+stamp(Date.now()),"DTSTART:"+stamp(T0),"DTEND:"+stamp(T1),
+  "SUMMARY:"+evTitle.replace(/[,;]/g,"\\$&"),"LOCATION:"+loc.replace(/[,;]/g,"\\$&"),"DESCRIPTION:"+details.replace(/[,;]/g,"\\$&").replace(/\n/g,"\\n"),"END:VEVENT","END:VCALENDAR"].join("\r\n");
+$("#ics").addEventListener("click", () => {
+  const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([icsText],{type:"text/calendar"})); a.download = "workshop.ics";
+  document.body.appendChild(a); a.click(); a.remove();
+  copy(icsText, "Calendar file downloaded \u2014 also copied to your clipboard");
+});
+$("#copy-invite").addEventListener("click", () => copy(`${evTitle}\n${details}`, "Agenda copied \u2014 paste into an email or invite"));
+
+/* ---------- live mode: before / during / after ---------- */
+let simOffset = null; // ms; null = real time
+const now = () => simOffset === null ? Date.now() : T0 + simOffset;
+const fmtUntil = ms => { const m = Math.round(ms/60000), d = Math.floor(m/1440), h = Math.floor(m%1440/60), mm = m%60;
+  return d ? `${d}d ${h}h` : h ? `${h}h ${mm}m` : `${mm} min`; };
+function tick(){
+  const t = now(), pill = $("#live-pill"), status = $("#now-status"), marker = $("#now-marker");
+  document.querySelectorAll(".block,.seg,.social").forEach(el => el.classList.remove("is-now","is-past"));
+  pill.classList.remove("is-live"); marker.style.display = "none";
+  if (t < T0){
+    pill.hidden = false; pill.textContent = `Starts in ${fmtUntil(T0 - t)}`;
+    status.textContent = "";
+  } else if (t >= T1){
+    timed.forEach(b => { $("#"+b.id)?.classList.add("is-past"); $(`.seg[data-id="${b.id}"]`)?.classList.add("is-past"); });
+    const soc = socials.find(b => t >= b.t0 && t < b.t1), next = socials.find(b => t < b.t0);
+    socials.forEach(b => { if (t >= b.t1) $("#"+b.id)?.classList.add("is-past"); });
+    pill.hidden = false;
+    if (soc){
+      $("#"+soc.id)?.classList.add("is-now"); pill.classList.add("is-live");
+      const what = (!soc.tag || soc.tag === soc.title) ? soc.title : `${soc.tag} at ${soc.title}`;
+      pill.textContent = `Now \u00b7 ${what}`;
+      status.textContent = `Sessions wrapped \u00b7 now: ${what}`;
+    } else if (next){
+      pill.textContent = `Sessions wrapped \u00b7 ${next.tag || "Social"} at ${clock(next.s,true)}`;
+      status.textContent = pill.textContent;
+    } else {
+      pill.textContent = W.actions?.length ? "Session wrapped \u00b7 see next steps below" : "Session wrapped";
+      status.textContent = "";
+    }
+  } else {
+    const cur = timed.find(b => t >= b.t0 && t < b.t1);
+    timed.forEach(b => { if (t >= b.t1){ $("#"+b.id)?.classList.add("is-past"); $(`.seg[data-id="${b.id}"]`)?.classList.add("is-past"); } });
+    if (cur){
+      const el = $("#"+cur.id); el.classList.add("is-now");
+      const pct = (t - cur.t0) / (cur.t1 - cur.t0) * 100; const bar = el.querySelector(".prog i"); if (bar) bar.style.width = pct + "%";
+      const left = Math.max(1, Math.round((cur.t1 - t)/60000));
+      const name = cur.type === "break" ? "Break" : cur.title;
+      pill.hidden = false; pill.classList.add("is-live"); pill.textContent = `Live now \u00b7 ${name}`;
+      status.textContent = `Now: ${name} \u00b7 ${left} min left`;
+    }
+    // marker position across the strip
+    const strip = $("#strip"), segs = [...strip.querySelectorAll(".seg")], seg = segs.find(s => s.dataset.id === cur?.id);
+    if (seg){ const frac = (t - cur.t0)/(cur.t1 - cur.t0); marker.style.left = (seg.offsetLeft + frac*seg.offsetWidth) + "px"; marker.style.display = "block"; }
+  }
+}
+tick(); setInterval(tick, 15000); addEventListener("resize", tick);
+document.addEventListener("visibilitychange", () => { if (!document.hidden) tick(); });
+$("#sim").addEventListener("click", e => {
+  const total = (socials.length ? socials[socials.length-1].t0 + 30*60000 : T1) - T0, step = 20*60000;
+  simOffset = simOffset === null ? 5*60000 : simOffset + step;
+  if (simOffset > total + step){ simOffset = null; e.target.textContent = "Preview live view"; toast("Back to real time"); }
+  else e.target.textContent = simOffset >= total ? "Preview: after \u00b7 click to reset" : `Preview: ${clock((evStart + Math.round(simOffset/60000)) % 1440, true)} \u00b7 click +20 min`;
+  tick();
+});
+})();
+</script>
+</body>
+</html>
