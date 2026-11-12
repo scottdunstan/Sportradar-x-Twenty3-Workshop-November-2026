@@ -93,7 +93,8 @@ window.WORKSHOP = {
       presenters: "James Padden, Laurence Williams and the Twenty3 team" },
     { type: "session", lead: "host", minutes: 10, short: "What\u2019s next",
       title: "What\u2019s next for the Soccer API",
-      presenters: "Laurence Williams" },
+      presenters: "Laurence Williams",
+      figure: { href: "roadmap.html", label: "View the full roadmap" } },
     { type: "session", lead: "joint", minutes: 40, short: "Opportunities & innovations",
       title: "Market opportunities and innovations",
       summary: "An open session for everyone: the best opportunities in the market, new innovations, and how we win together." },
@@ -254,6 +255,22 @@ h2{font:500 30px/1.15 var(--display);letter-spacing:-.02em;margin:10px 0 12px}
 .social p{margin:0 0 14px;color:var(--muted);font-size:14px}
 .social .sign{font:600 12px var(--display);letter-spacing:.2em;text-transform:uppercase;color:#f6c25b;margin-left:14px}
 
+/* status pills + figures */
+.st{display:inline-block;margin-left:8px;padding:1px 8px;border-radius:999px;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;vertical-align:1px;white-space:nowrap;background:rgba(138,180,248,.14);color:#8ab4f8}
+.st--live,.st--active{background:rgba(129,201,149,.16);color:#81c995}
+.st--planned{background:rgba(255,255,255,.08);color:var(--muted)}
+.st--new-package,.st--new{background:rgba(197,138,249,.16);color:#d7aefb}
+.st--investigating{background:rgba(246,194,91,.14);color:#f6c25b}
+.block .note{font-size:12px;color:var(--dim);margin:14px 0 0}
+.fig-btn{margin-top:14px;display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 8px;border-radius:12px;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--text);font:500 14px var(--font);cursor:pointer}
+.fig-link{padding:9px 16px;text-decoration:none;color:var(--accent)}
+.fig-btn:hover{background:rgba(255,255,255,.07)}
+.fig-btn img{width:56px;height:40px;object-fit:cover;object-position:top;border-radius:6px;background:#fff}
+.lightbox{position:fixed;inset:0;z-index:60;background:rgba(5,7,10,.88);display:none;overflow:auto;padding:56px 24px 32px}
+.lightbox.open{display:block}
+.lightbox img{display:block;max-width:min(1200px,100%);height:auto;margin:0 auto;border-radius:12px}
+.lightbox button{position:fixed;top:14px;right:18px;background:#fff;color:#111;border:0;border-radius:999px;padding:8px 16px;font:500 14px var(--font);cursor:pointer}
+
 /* actions */
 .table{width:100%;border-collapse:collapse;font-size:14px}
 .table th{text-align:left;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:600;padding:0 12px 12px 0;border-bottom:1px solid rgba(255,255,255,.4)}
@@ -291,7 +308,7 @@ footer button{background:none;border:1px solid var(--line);color:var(--muted);bo
 }
 @media print{
   :root{--bg:#fff;--bg-2:#fff;--card:#fff;--text:#111;--muted:#444;--dim:#666;--line:#ddd}
-  .topbar,footer,.logistics>div:last-child,.toast,.now-marker{display:none!important}
+  .topbar,footer,.logistics>div:last-child,.toast,.now-marker,.fig-btn,.lightbox{display:none!important}
   .hero::before{display:none}.section{padding:28px 0;break-inside:avoid}.reveal{opacity:1;transform:none}
   .block.is-past{opacity:1}.sec-head{position:static}
 }
@@ -437,7 +454,10 @@ if (W.prep?.length) sections.push(`<section id="prep" class="section"><div class
 
 // Agenda
 const items = list => !list?.length ? "" : `<ul>${list.map(it => typeof it === "string" ? `<li>${esc(it)}</li>` :
-  `<li>${it.b?`<b>${esc(it.b)}</b> `:""}${esc(it.t||"")}${items(it.sub)}</li>`).join("")}</ul>`;
+  `<li>${it.b?`<b>${esc(it.b)}</b> `:""}${esc(it.t||"")}${it.s?`<span class="st st--${it.s.toLowerCase().replace(/\s+/g,"-")}">${esc(it.s)}</span>`:""}${items(it.sub)}</li>`).join("")}</ul>`;
+const ASSETS = window.WORKSHOP_ASSETS || {};
+const figSrc = f => ASSETS[f.src] || f.src;
+const figure = (f, id) => !f ? "" : f.href ? `<a class="fig-btn fig-link" href="${esc(f.href)}">${esc(f.label || "Open")} \u2192</a>` : `<button class="fig-btn" data-fig="${id}"><img src="${figSrc(f)}" alt="">${esc(f.label || "View image")}</button>`;
 const agendaHTML = blocks.map(b => {
   if (b.type === "break") return `<article class="block break reveal" id="${b.id}" style="--c:var(--break)"><div class="t">${clock(b.s)}</div><div class="bt">Break \u00b7 ${b.mins} min</div></article>`;
   if (b.type === "social") return `<article class="social reveal" id="${b.id}"><div><div style="font:500 21px var(--display)">${clock(b.s)}</div><div style="font-size:13px;color:var(--muted)">${b.until ? `to ${clock(toMins(b.until),true)}` : `${clock(b.s,true).slice(-2)} onward`}</div></div>
@@ -446,7 +466,7 @@ const agendaHTML = blocks.map(b => {
   return `<article class="block reveal" id="${b.id}" style="--c:${solid(L.color)};--g:${L.color}">
     <div><div class="t">${clock(b.s)}</div><div class="to">to ${clock(b.e,true)}</div><span class="dur">${b.mins} min</span></div>
     <div><div class="tag"><i></i>${esc(L.label)}</div><h3>${esc(b.title)}</h3>
-      ${b.presenters?`<p class="who">${esc(b.presenters)}</p>`:""}${b.summary?`<p class="sum">${esc(b.summary)}</p>`:""}${items(b.items)}
+      ${b.presenters?`<p class="who">${esc(b.presenters)}</p>`:""}${b.summary?`<p class="sum">${esc(b.summary)}</p>`:""}${items(b.items)}${b.note?`<p class="note">${esc(b.note)}</p>`:""}${figure(b.figure, b.id)}
       <div class="prog"><i></i></div></div></article>`;
 }).join("");
 sections.push(`<section id="agenda" class="section"><div class="wrap grid">${head("agenda","Run of show",`${dateLong}. All times ${W.tzLabel}.`)}
@@ -495,6 +515,18 @@ $("#ics").addEventListener("click", () => {
   copy(icsText, "Calendar file downloaded \u2014 also copied to your clipboard");
 });
 $("#copy-invite").addEventListener("click", () => copy(`${evTitle}\n${details}`, "Agenda copied \u2014 paste into an email or invite"));
+
+/* ---------- image lightbox ---------- */
+const lb = document.createElement("div"); lb.className = "lightbox"; lb.setAttribute("role","dialog"); lb.setAttribute("aria-modal","true");
+lb.innerHTML = `<button type="button">Close</button><img alt="">`; document.body.appendChild(lb);
+const closeLb = () => { lb.classList.remove("open"); document.body.style.overflow = ""; };
+lb.addEventListener("click", e => { if (e.target === lb || e.target.tagName === "BUTTON") closeLb(); });
+addEventListener("keydown", e => { if (e.key === "Escape") closeLb(); });
+document.querySelectorAll("button.fig-btn").forEach(btn => btn.addEventListener("click", () => {
+  const f = blocks.find(b => b.id === btn.dataset.fig).figure;
+  const im = lb.querySelector("img"); im.src = figSrc(f); im.alt = f.alt || "";
+  lb.classList.add("open"); lb.scrollTop = 0; document.body.style.overflow = "hidden"; lb.querySelector("button").focus();
+}));
 
 /* ---------- live mode: before / during / after ---------- */
 let simOffset = null; // ms; null = real time

@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>What's next for the Soccer API?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Red+Hat+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0f2147; --ink:#111a2e; --body:#4a5568; --muted:#6b7689; --line:#dfe5ee; --card:#fff;
+  --blue-bg:#eef4fc; --green-bg:#eef7f0; --teal-bg:#e9f5f3;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  --display:"Red Hat Display","Inter",system-ui,sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#fff;color:var(--ink);font:15px/1.45 var(--font);-webkit-font-smoothing:antialiased}
+.page{max-width:1680px;margin:0 auto;padding:20px 24px 40px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:#1d4fa8;text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line)}
+.back:hover{background:var(--blue-bg)}
+header{text-align:center;margin:8px 0 28px}
+h1{font:900 clamp(30px,3.4vw,46px)/1.1 var(--display);color:var(--navy);margin:0 0 10px;letter-spacing:-.02em}
+header p{font-size:clamp(16px,1.5vw,22px);color:var(--body);margin:0}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 350px;gap:18px;align-items:start}
+
+/* sections */
+.sec{border-radius:18px;padding:18px;margin-bottom:16px}
+.sec--blue{background:var(--blue-bg)} .sec--green{background:var(--green-bg)} .sec--teal{background:var(--teal-bg)}
+.sec-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:14px}
+.badge{flex:none;width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font:800 22px var(--display);color:#fff;background:var(--navy)}
+.sec--green .badge{background:#1a7f43} .sec--teal .badge{background:#134e4a}
+h2{font:800 clamp(21px,2vw,27px)/1.15 var(--display);color:var(--navy);margin:0;letter-spacing:-.01em}
+.sub{color:var(--body);font-size:16px}
+.sub b{font-weight:600;color:var(--ink)}
+
+/* cards */
+.row{display:grid;gap:12px}
+.c3{grid-template-columns:1fr 1fr 1.65fr} .c7{grid-template-columns:repeat(7,1fr)} .c6{grid-template-columns:repeat(6,1fr)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px 14px;text-align:center}
+.card--tint{background:#e6f5ef;border-color:#bfe3d3}
+.card svg{width:40px;height:40px;stroke:var(--navy);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;display:block;margin:0 auto 8px}
+.sec--teal .phase svg{stroke:#134e4a}
+h3{font:600 17px/1.25 var(--font);margin:0 0 6px;color:var(--ink)}
+.card p{margin:0;color:var(--body);font-size:14px}
+.card p b{color:var(--ink);font-weight:600}
+.pill{display:inline-block;margin-top:10px;padding:2px 10px;border-radius:999px;font-size:11.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap;background:#dbe8fb;color:#1d4fa8}
+.pill--live{background:#d6f0dc;color:#1a7f43} .pill--new{background:#e4dcfb;color:#5b34c4}
+.pill--grey{background:#e8ebf0;color:#4a5568} .pill--amber{background:#fdeccb;color:#a15c00}
+.pill--solid{background:#1d4fa8;color:#fff;margin:0}
+.card .pill--tag{margin-top:2px}
+
+.progress{display:flex;align-items:center;gap:14px;margin-top:14px;flex-wrap:wrap}
+.bar{flex:1 1 240px;height:20px;border-radius:999px;background:#d5dfec;overflow:hidden}
+.bar i{display:block;height:100%;width:57.14%;border-radius:999px 0 0 999px;background:linear-gradient(90deg,#2b7de0,#35b8c4)}
+.progress span{font-weight:600;color:#1d4fa8;font-size:15px}
+
+.codes{margin-top:12px;background:#f1f4f9;border-radius:6px;padding:8px 6px;font:400 11.5px/1.65 var(--mono);color:#3b4658;overflow-wrap:break-word}
+.codes span{display:block}
+.banner{margin-top:14px;border-radius:10px;padding:10px 16px;text-align:center;font-size:15px;color:#1f3b2c;background:#d3ecd9}
+.sec--teal .banner{background:#cdeae5;color:#143c39}
+.banner b{font-weight:700}
+
+.phases{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:12px;align-items:stretch}
+.arrow{align-self:center;color:#35a7d6;font-size:26px;font-weight:700}
+
+.c-cov{grid-template-columns:1fr 1fr 1fr}
+.cov{text-align:left;padding:16px}
+.cov-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.cov-top strong{font:900 44px/1 var(--display);color:var(--navy)}
+.cov-top .pill{margin:0;font-size:14px;padding:3px 10px}
+.cov p{font-size:14.5px;line-height:1.75;color:var(--body)}
+.chips{display:flex;flex-wrap:wrap;gap:8px 6px}
+.chips span{font-size:13px;padding:2px 10px;border-radius:999px;background:#fdf3dc;border:1px solid #f1d9a0;color:#8a5200;white-space:nowrap}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin:4px 0 0}
+
+/* sidebar */
+aside .box{border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:16px;background:var(--blue-bg)}
+.box-head{display:flex;align-items:center;gap:14px;padding:18px 22px;background:#deebf8}
+.box-head svg{flex:none;width:30px;height:30px;fill:#1d4fa8}
+.box-head h2{font-size:23px}
+.means{list-style:none;margin:0;padding:18px 20px 12px}
+.means li{display:flex;gap:14px;margin-bottom:18px}
+.means i{flex:none;width:32px;height:32px;border-radius:50%;background:#cfdff5;color:#1d4fa8;display:grid;place-items:center;font:700 15px var(--font);font-style:normal}
+.means b{display:block;font-weight:500;font-size:16.5px;color:var(--ink)}
+.means span{font-size:13px;color:var(--muted);line-height:1.4;display:block;margin-top:2px}
+.key{background:#fff!important;padding:16px 20px 20px}
+.key h4{font:800 18px var(--display);color:var(--navy);margin:0 0 10px}
+.key .pill{margin:0 6px 8px 0}
+
+@media (max-width:1250px){.layout{grid-template-columns:1fr}.c7{grid-template-columns:repeat(4,1fr)}.c6{grid-template-columns:repeat(3,1fr)}
+  aside{display:grid;grid-template-columns:1fr 300px;gap:16px;align-items:start}}
+@media (max-width:820px){.c3,.c-cov{grid-template-columns:1fr}.c7,.c6{grid-template-columns:repeat(2,1fr)}
+  .phases{grid-template-columns:1fr}.arrow{transform:rotate(90deg);text-align:center}aside{display:block}.page{padding:14px}}
+@media print{.back{display:none}.sec{break-inside:avoid}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-server" viewBox="0 0 24 24"><rect x="2.5" y="3.5" width="19" height="7" rx="2"/><rect x="2.5" y="13.5" width="19" height="7" rx="2"/><path d="M6.5 7h.01M6.5 17h.01M11 7h6M11 17h6"/></symbol>
+  <symbol id="i-pulse" viewBox="0 0 24 24"><path d="M2.5 12h4.5l2.5-6 4 13 2.5-7h5.5"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5.5" rx="8" ry="3"/><path d="M4 5.5v6.500c0 1.700 3.600 3 8 3s8-1.300 8-3V5.500M4 12v6.500c0 1.700 3.600 3 8 3s8-1.300 8-3V12"/></symbol>
+  <symbol id="i-tv" viewBox="0 0 24 24"><rect x="2.500" y="7" width="19" height="13" rx="2"/><path d="M8 2.500l4 4.500 4-4.500"/></symbol>
+  <symbol id="i-med" viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="14" rx="2"/><path d="M9 7V4.500a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1V7M12 11v6M9 14h6"/></symbol>
+  <symbol id="i-cam" viewBox="0 0 24 24"><rect x="2.500" y="6" width="13" height="12" rx="2"/><path d="M15.500 10.500l6-3.500v10l-6-3.500"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="13.500" r="8"/><path d="M12 9.500v4l2.500 2M9.500 2.500h5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21.500V3h14l-3 5 3 5H5"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M7.500 3v17.500M7.500 20.500l-4-4M7.500 20.500l4-4M16.500 21V3.500M16.500 3.500l-4 4M16.500 3.500l4 4"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4.500" width="18" height="16.500" rx="2"/><path d="M3 10h18M8 2.500v4M16 2.500v4M8 15.500h.01M12 15.500h.01M16 15.500h.01"/></symbol>
+  <symbol id="i-person" viewBox="0 0 24 24"><circle cx="12" cy="5" r="2.800"/><path d="M5.500 21l3-9.500h7l3 9.500M9 16.500h6"/></symbol>
+  <symbol id="i-kick" viewBox="0 0 24 24"><path d="M4 4l11 11M4 4h5.500M4 4v5.500"/><circle cx="18" cy="18" r="2.800"/></symbol>
+  <symbol id="i-dribble" viewBox="0 0 24 24"><path d="M3.500 20.500l5-5.500 5 1.500 6.500-9M20 7.500h-4M20 7.500v4"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.200"/></symbol>
+  <symbol id="i-cross" viewBox="0 0 24 24"><path d="M3.500 20.500c1-8 6-13.500 16-14M19.500 6.500l-5-3M19.500 6.500l-3 5"/></symbol>
+  <symbol id="i-corner" viewBox="0 0 24 24"><path d="M5 21.500V3l10 3.500-10 4M5 21.500h15"/></symbol>
+  <symbol id="i-check-user" viewBox="0 0 24 24"><circle cx="10" cy="7" r="4"/><path d="M2.500 21.500c.500-5 3.500-7.500 7.500-7.500 1.500 0 2.800.300 4 1M15.500 9.500l2.500 2.500 4-5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.500l8.500 3v6.500c0 5-3.500 8.500-8.500 10-5-1.500-8.500-5-8.500-10V5.500z"/><path d="M8.500 12l2.500 2.500 4.500-5"/></symbol>
+</svg>
+
+<div class="page">
+  <a class="back" href="index.html">&larr; Back to agenda</a>
+  <header>
+    <h1>What's next for the Soccer API?</h1>
+    <p>What's shipping, what's in flight, and what's coming next across the Soccer V4 product family</p>
+  </header>
+
+  <div class="layout">
+    <main>
+      <section class="sec sec--blue">
+        <div class="sec-head"><span class="badge">1</span><h2>Large Product Initiatives</h2><span class="sub">Infrastructure and data architecture upgrades</span></div>
+        <div class="row c3">
+          <div class="card"><svg><use href="#i-server"/></svg><h3>Push architecture improvements</h3><p>Overhaul of the push delivery layer — better uptime, fewer latency spikes, more resilient live feeds for high-traffic events</p><span class="pill">In progress</span></div>
+          <div class="card"><svg><use href="#i-pulse"/></svg><h3>Push extended channels</h3><p>New push channels for extended timeline events and summary statistics — real-time access to data previously polling-only</p><span class="pill">In progress</span></div>
+          <div class="card card--tint"><svg><use href="#i-db"/></svg><h3>Soccer Historical — new package</h3><p>Pre-generated, season-scoped history for <b>10 top-tier competitions</b> — Premier League, La Liga, Bundesliga, Serie A, Ligue 1, UCL, UEL, FIFA World Cup, UEFA Euros and MLS — all launching together. Replaces the legacy Soccer Historical Extended API. World Cup sample data available for demos.</p><span class="pill pill--new">New package</span></div>
+        </div>
+      </section>
+
+      <section class="sec sec--blue">
+        <div class="sec-head"><span class="badge">2</span><h2>Partner-Requested Features</h2><span class="sub">Improvements delivered from partner feedback</span></div>
+        <div class="row c7">
+          <div class="card"><svg><use href="#i-tv"/></svg><h3>Broadcast data</h3><p>TV channel and broadcast rights data, now including local region broadcasts</p><span class="pill">In QA</span></div>
+          <div class="card"><svg><use href="#i-med"/></svg><h3>Injury estimated return</h3><p>Type, severity and estimated return date for injuries &amp; suspensions</p><span class="pill pill--live">Live</span></div>
+          <div class="card"><svg><use href="#i-cam"/></svg><h3>Player info on VAR events</h3><p>Player name + ID on VAR checks (red card, penalty, goal)</p><span class="pill pill--live">Live</span></div>
+          <div class="card"><svg><use href="#i-clock"/></svg><h3>Event clock values</h3><p>Clock timestamps on break-start events</p><span class="pill pill--live">Live</span></div>
+          <div class="card"><svg><use href="#i-flag"/></svg><h3>"Friendly" flag</h3><p>Boolean on competition &amp; season to filter friendlies</p><span class="pill pill--live">Live</span></div>
+          <div class="card"><svg><use href="#i-swap"/></svg><h3>Substitutions total</h3><p>Substitutions permitted per team, for tactical context</p><span class="pill">In QA</span></div>
+          <div class="card"><svg><use href="#i-cal"/></svg><h3>Extended fixture data</h3><p>Whether extra time / penalties are possible — key for knockouts</p><span class="pill">In QA</span></div>
+        </div>
+        <div class="progress"><div class="bar" role="img" aria-label="4 of 7 live"><i></i></div><span>4 of 7 live · substitutions total + extended fixture data ship together in a new fixture_details node</span></div>
+      </section>
+
+      <section class="sec sec--green">
+        <div class="sec-head"><span class="badge">3</span><h2>New Events &amp; Statistics</h2><span class="pill pill--solid">In QA</span><span class="sub">16 new stats in <b>extended_summary</b> · planned before end of 2026</span></div>
+        <div class="row c6">
+          <div class="card"><svg><use href="#i-person"/></svg><h3>Aerial Duel</h3><span class="pill pill--new pill--tag">New event</span><div class="codes"><span>aerial_<wbr>duels_<wbr>total</span><span>aerial_<wbr>duels_<wbr>won</span><span>aerial_<wbr>duels_<wbr>lost</span><span>aerial_<wbr>duels_<wbr>won_<wbr>percentage</span></div></div>
+          <div class="card"><svg><use href="#i-kick"/></svg><h3>Free Kick</h3><span class="pill pill--new pill--tag">New event</span><div class="codes"><span>free_<wbr>kicks_<wbr>taken</span><span>free_<wbr>kicks_<wbr>on_<wbr>target</span></div></div>
+          <div class="card"><svg><use href="#i-dribble"/></svg><h3>Dribbles</h3><span class="pill pill--grey pill--tag">Enriched</span><div class="codes"><span>dribbled_<wbr>past</span><span>carries_<wbr>into_<wbr>final_<wbr>third</span><span>carries_<wbr>into_<wbr>penalty_<wbr>area</span></div></div>
+          <div class="card"><svg><use href="#i-target"/></svg><h3>Shots</h3><span class="pill pill--grey pill--tag">Enriched</span><div class="codes"><span>big_<wbr>chances</span><span>big_<wbr>chances_<wbr>scored</span><span>big_<wbr>chances_<wbr>missed</span><span>big_<wbr>chances_<wbr>conversion_<wbr>percentage</span></div></div>
+          <div class="card"><svg><use href="#i-cross"/></svg><h3>Crosses</h3><span class="pill pill--grey pill--tag">Target coord</span><div class="codes"><span>crosses_<wbr>into_<wbr>penalty_<wbr>area</span></div></div>
+          <div class="card"><svg><use href="#i-corner"/></svg><h3>Corners</h3><span class="pill pill--grey pill--tag">Taker ID</span><div class="codes"><span>corner_<wbr>kicks_<wbr>taken</span><span>corner_<wbr>kicks_<wbr>into_<wbr>six_<wbr>yard_<wbr>box</span></div></div>
+        </div>
+        <div class="banner"><b>Partner value:</b> aerial dominance, set-piece attribution, carry metrics and big chance analysis at team and player level — available for all competitions with extended coverage</div>
+      </section>
+
+      <section class="sec sec--teal">
+        <div class="sec-head"><span class="badge">4</span><h2>Coverage Accuracy Overhaul</h2><span class="sub">Bringing coverage flags in line with what production actually delivers</span></div>
+        <div class="phases">
+          <div class="card phase"><svg><use href="#i-check-user"/></svg><h3>Phase 1 — Operations alignment</h3><p>Audit coverage property sources against defined production coverage levels</p><span class="pill">In progress</span></div>
+          <div class="arrow" aria-hidden="true">&rarr;</div>
+          <div class="card phase"><svg><use href="#i-grid"/></svg><h3>Phase 2 — Coverage matrix update</h3><p>Coverage matrix reflects verified availability, plus a full site redesign</p><span class="pill pill--grey">Planned</span></div>
+          <div class="arrow" aria-hidden="true">&rarr;</div>
+          <div class="card phase"><svg><use href="#i-shield"/></svg><h3>Phase 3 — Service levels aligned to market</h3><p>Service commitments grounded in verified performance for betting, broadcast and fantasy</p><span class="pill pill--grey">Planned</span></div>
+        </div>
+        <div class="banner"><b>Why it matters:</b> when a coverage flag says data will be there, you can build on it with confidence — feeds and documentation will reflect reality</div>
+      </section>
+
+      <section class="sec sec--teal">
+        <div class="sec-head"><span class="badge">5</span><h2>Extended Coverage — 26/27 Competitions</h2><span class="sub">Full extended suite: event feeds, player stats, extended timeline, push channels</span></div>
+        <div class="row c-cov">
+          <div class="card cov"><div class="cov-top"><strong>4</strong><span class="pill pill--live">Active</span></div>
+            <p><b>Championship</b> · England · 559<br><b>Eredivisie</b> · Netherlands · 326<br><b>Liga Portugal</b> · Portugal · 308<br><b>A-League</b> · Australia · 163</p></div>
+          <div class="card cov"><div class="cov-top"><strong>7</strong><span class="pill">Confirmed</span></div>
+            <p><b>Primera LPF</b> 510 · <b>Liga DIMAYOR</b> 226<br><b>UWCL</b> 75 · <b>Women's World Cup</b> 64<br><b>CONCACAF Champions Cup</b> 51<br><b>Copa América</b> 32 · <b>ASEAN Championship</b> 26</p></div>
+          <div class="card cov"><div class="cov-top"><strong>18</strong><span class="pill pill--amber">Investigating</span></div>
+            <div class="chips"><span>Pro League (BEL)</span><span>Süper Lig (TUR)</span><span>Indian Super League</span><span>Saudi Pro League</span><span>LaLiga 2</span><span>Serie B</span><span>Russian Premier League</span><span>Danish Superliga</span><span>3. Liga</span><span>Ligue 2</span><span>EFL Cup</span><span>AFC Champions League Elite</span><span>Leagues Cup</span><span>UEFA U21 Euro</span><span>WC Qualification AFC</span><span>WC Qualification CONMEBOL</span><span>Algerian Ligue 1</span><span>Egyptian Premier League</span></div></div>
+        </div>
+        <div class="banner"><b>11 competitions · ~2,340 matches</b> confirmed for extended coverage · 18 more under investigation</div>
+      </section>
+      <p class="foot">Status as of 12 November 2026 · planned dates are targets and may change</p>
+    </main>
+
+    <aside>
+      <div class="box">
+        <div class="box-head"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l3 6.600 7.200.800-5.400 4.900 1.500 7.100L12 17.800l-6.300 3.600 1.500-7.100L1.800 9.400 9 8.600z"/></svg><h2>What this means for you</h2></div>
+        <ol class="means">
+          <li><i>1</i><div><b>Real-time extended data</b><span>Extended timeline and summary statistics delivered over push, not just polling</span></div></li>
+          <li><i>2</i><div><b>History in one package</b><span>Season-scoped data for 10 top-tier competitions, ready to use</span></div></li>
+          <li><i>3</i><div><b>16 new statistics before year end</b><span>Aerial duels, free kicks, carries, big chances, crosses and corners at team and player level</span></div></li>
+          <li><i>4</i><div><b>More competitions at full depth</b><span>11 more competitions with extended coverage, 4 already live</span></div></li>
+          <li><i>5</i><div><b>Faster, richer integrations</b><span>VAR player info, injury returns, friendly flags and fixture rules, with no extra lookups needed</span></div></li>
+          <li><i>6</i><div><b>Coverage you can trust</b><span>Coverage flags and the coverage matrix match what's actually delivered</span></div></li>
+        </ol>
+      </div>
+      <div class="box key">
+        <h4>Status key</h4>
+        <span class="pill pill--live">Live / Active</span><br>
+        <span class="pill">In progress / In QA / Confirmed</span><br>
+        <span class="pill pill--amber">Investigating</span><span class="pill pill--new">New</span><br>
+        <span class="pill pill--grey">Planned / Enriched</span>
+      </div>
+    </aside>
+  </div>
+</div>
+</body>
+</html>
