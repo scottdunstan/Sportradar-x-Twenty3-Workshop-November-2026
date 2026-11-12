@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Top 6 Backfill Summary — Twenty3</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f6f2;--navy:#131c3a;--blue:#2350b5;--grey:#5d6577;--line:#d9dce0;--hi:#e3ebf9;
+  --font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;--display:"Space Grotesk","Inter",system-ui,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--navy);font:16px/1.4 var(--font);-webkit-font-smoothing:antialiased}
+.page{max-width:1340px;margin:0 auto;padding:20px 32px 48px}
+.back{display:inline-flex;align-items:center;gap:6px;font-size:14px;font-weight:500;color:var(--blue);text-decoration:none;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:#fff}
+.back:hover{background:var(--hi)}
+.eyebrow{margin:44px 0 6px;font-size:clamp(13px,1.4vw,18px);font-weight:600;letter-spacing:.09em;text-transform:uppercase;color:var(--blue)}
+h1{font:600 clamp(28px,4vw,50px)/1.12 var(--display);margin:0 0 30px;letter-spacing:-.01em}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:separate;border-spacing:0;min-width:720px}
+th,td{text-align:left;padding:14px 16px;vertical-align:bottom}
+th:first-child,td:first-child{padding-left:0}
+thead th{font-weight:400;border-bottom:2px solid var(--navy);color:var(--grey);font-size:17px}
+thead th b{display:block;font-weight:500;font-size:21px}
+thead th.before b{color:var(--grey)} thead th.after b{color:var(--blue)} thead th.now b{color:var(--navy)}
+thead th.after{color:var(--blue)}
+tbody td{border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+td.m{font-weight:500;font-size:clamp(16px,1.6vw,21px)}
+td.m span{color:var(--grey)}
+td.v{font:500 clamp(22px,2.4vw,30px)/1.1 var(--display);white-space:nowrap}
+td.before{color:var(--grey)} td.after{color:var(--blue);font-weight:700} td.now{color:var(--navy);font-weight:600}
+.after{background:var(--hi)}
+thead th.after{border-radius:12px 12px 0 0}
+tbody tr:last-child td.after{border-radius:0 0 12px 12px}
+.src{margin:56px 0 0;color:var(--grey);font-size:clamp(13px,1.4vw,18px)}
+@media (max-width:600px){.page{padding:14px 16px 32px}.eyebrow{margin-top:28px}}
+@media print{.back{display:none}}
+</style>
+</head>
+<body>
+<div class="page">
+  <a class="back" href="index.html">&larr; Back to agenda</a>
+  <p class="eyebrow">Top 6 leagues · Sportradar Soccer Extended data</p>
+  <h1>The backfill closed 95% of 2025/26 data gaps</h1>
+  <div class="scroll">
+  <table>
+    <thead><tr>
+      <th scope="col">Measure</th>
+      <th scope="col" class="before"><b>Before backfill</b>22 Sep · 1,944 matches</th>
+      <th scope="col" class="after"><b>After backfill</b>12 Nov · 1,944 matches</th>
+      <th scope="col" class="now"><b>2026/27 so far</b>to 8 Nov · 572 matches</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="m">Passes with end location <span>· target 97%</span></td><td class="v before">88.41%</td><td class="v after">99.75%</td><td class="v now">99.95%</td></tr>
+      <tr><td class="m">Shots with expected goals (xG) <span>· target 90%</span></td><td class="v before">86.86%</td><td class="v after">90.43%</td><td class="v now">92.94%</td></tr>
+      <tr><td class="m">Shots with body part</td><td class="v before">80.12%</td><td class="v after">100%</td><td class="v now">100%</td></tr>
+      <tr><td class="m">Duplicate shots <span>· per 100 matches</span></td><td class="v before">13.9</td><td class="v after">0.2</td><td class="v now">0.2</td></tr>
+      <tr><td class="m">Stats contradicting events <span>· per 100 matches</span></td><td class="v before">20.7</td><td class="v after">0.1</td><td class="v now">0</td></tr>
+      <tr><td class="m">Matches with a critical gap</td><td class="v before">491 · 25%</td><td class="v after">3 · 0.2%</td><td class="v now">0</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="src">Top 6: Premier League, LaLiga, Serie A, Bundesliga, Ligue 1, Champions League · Source: Sportradar Soccer Extended v4</p>
+</div>
+</body>
+</html>
